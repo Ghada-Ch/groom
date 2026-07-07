@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Suitor's Dossier — Groom Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#20232a;
+    --paper:#fbf9f4;
+    --paper-dim:#f1ede3;
+    --burgundy:#7a2e2e;
+    --burgundy-deep:#5a1f1f;
+    --gold:#a9822f;
+    --gold-bright:#c9a227;
+    --line:#d8d0bd;
+    --green-ok:#3c6e52;
+    --shadow: 0 10px 30px rgba(32,35,42,0.10);
+    --radius: 4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== Cover / Hero ===== */
+  .cover{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--paper);
+    padding:60px 24px;
+    position:relative;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(169,130,47,0.12), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(122,46,46,0.20), transparent 50%),
+      var(--ink);
+    overflow:hidden;
+  }
+  .cover::before{
+    content:"";
+    position:absolute;
+    inset:18px;
+    border:1px solid rgba(201,162,39,0.35);
+    pointer-events:none;
+  }
+  .cover .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--gold-bright);
+    margin-bottom:22px;
+  }
+  .cover h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.6rem, 6vw, 5rem);
+    margin:0 0 18px;
+    line-height:1.02;
+  }
+  .cover h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--gold-bright);
+  }
+  .cover p.sub{
+    max-width:520px;
+    font-size:16px;
+    line-height:1.7;
+    color:#cfc9bd;
+    margin:0 0 40px;
+  }
+  .seal{
+    width:96px;height:96px;
+    border-radius:50%;
+    border:2px solid var(--gold-bright);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--gold-bright);
+    margin-bottom:34px;
+    letter-spacing:0.05em;
+    position:relative;
+  }
+  .seal::before, .seal::after{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border:1px solid rgba(201,162,39,0.25);
+    border-radius:50%;
+  }
+  .seal::after{ inset:-16px; border-color:rgba(201,162,39,0.12); }
+  .begin-btn{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    font-size:13px;
+    background:var(--gold-bright);
+    color:var(--ink);
+    border:none;
+    padding:16px 36px;
+    cursor:pointer;
+    border-radius:2px;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .begin-btn:hover{ background:#e0b840; transform:translateY(-2px); }
+
+  /* ===== Layout ===== */
+  .wrap{
+    display:none;
+    background:var(--paper);
+    min-height:100vh;
+  }
+  .wrap.active{ display:block; }
+
+  .progress-rail{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink);
+    padding:14px 24px;
+    display:flex; align-items:center; gap:16px;
+  }
+  .progress-rail .rail-title{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    color:var(--gold-bright);
+    font-size:15px;
+    white-space:nowrap;
+  }
+  .progress-track{
+    flex:1;
+    height:3px;
+    background:rgba(255,255,255,0.12);
+    position:relative;
+    overflow:hidden;
+    border-radius:2px;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--burgundy), var(--gold-bright));
+    transition:width .4s ease;
+  }
+  .progress-count{
+    font-family:'JetBrains Mono', monospace;
+    color:#cfc9bd;
+    font-size:12px;
+    white-space:nowrap;
+  }
+
+  .container{
+    max-width:760px;
+    margin:0 auto;
+    padding:64px 24px 120px;
+  }
+
+  .chapter{
+    display:none;
+    animation:fadein .5s ease;
+  }
+  .chapter.active{ display:block; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+
+  .chapter-index{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--burgundy);
+    font-size:12px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .chapter-index::before{
+    content:"";
+    width:26px; height:1px;
+    background:var(--gold);
+  }
+  .chapter h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(1.8rem, 3.4vw, 2.5rem);
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .chapter .chapter-note{
+    color:#6b6558;
+    font-size:14.5px;
+    max-width:52ch;
+    line-height:1.6;
+    margin:0 0 40px;
+  }
+
+  .field{
+    margin-bottom:26px;
+  }
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:8px;
+    letter-spacing:0.01em;
+  }
+  .field label .opt{
+    font-weight:400;
+    color:#9a9384;
+    font-style:italic;
+    font-size:12px;
+  }
+  .field input[type=text],
+  .field input[type=number],
+  .field input[type=date],
+  .field input[type=email],
+  .field input[type=tel],
+  .field select,
+  .field textarea{
+    width:100%;
+    padding:13px 14px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    font-family:'Inter', sans-serif;
+    font-size:14.5px;
+    color:var(--ink);
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field textarea{ resize:vertical; min-height:90px; line-height:1.6; }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none;
+    border-color:var(--burgundy);
+    box-shadow:0 0 0 3px rgba(122,46,46,0.10);
+  }
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .row3{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width:600px){
+    .row, .row3{ grid-template-columns:1fr; }
+  }
+
+  /* chip / pill multi-select */
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+  .chip{
+    padding:9px 16px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    font-size:13px;
+    background:#fff;
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+    color:var(--ink);
+  }
+  .chip.selected{
+    background:var(--burgundy);
+    border-color:var(--burgundy);
+    color:#fff;
+  }
+  .chip input{ display:none; }
+
+  /* scale slider look for body info */
+  .scale{
+    display:flex;
+    justify-content:space-between;
+    gap:6px;
+  }
+  .scale label{
+    flex:1;
+    text-align:center;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:11px 4px;
+    font-size:12.5px;
+    cursor:pointer;
+    background:#fff;
+    transition:all .15s ease;
+  }
+  .scale input{ display:none; }
+  .scale input:checked + label{
+    background:var(--gold-bright);
+    border-color:var(--gold-bright);
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  /* radio card for romantic quiz */
+  .quiz-q{
+    margin-bottom:34px;
+    padding:22px;
+    background:var(--paper-dim);
+    border-left:3px solid var(--burgundy);
+    border-radius:2px;
+  }
+  .quiz-q .qtext{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-style:italic;
+    margin-bottom:16px;
+    color:var(--ink);
+  }
+  .quiz-opt{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:3px;
+    cursor:pointer;
+    font-size:14px;
+    line-height:1.5;
+    transition:background .15s ease;
+  }
+  .quiz-opt:hover{ background:rgba(122,46,46,0.05); }
+  .quiz-opt input{ margin-top:3px; }
+
+  .nav-buttons{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:50px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+  }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-size:12.5px;
+    padding:14px 26px;
+    border-radius:2px;
+    cursor:pointer;
+    border:1px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    transition:all .15s ease;
+  }
+  .btn:hover{ background:var(--ink); color:var(--paper); }
+  .btn.primary{
+    background:var(--burgundy);
+    border-color:var(--burgundy);
+    color:#fff;
+  }
+  .btn.primary:hover{ background:var(--burgundy-deep); }
+  .btn:disabled{ opacity:0.3; cursor:not-allowed; }
+  .btn:disabled:hover{ background:transparent; color:var(--ink); }
+
+  /* chapter index dots (left rail, desktop) */
+  .toc{
+    position:fixed;
+    left:28px; top:50%;
+    transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:16px;
+    z-index:40;
+  }
+  .toc button{
+    width:10px; height:10px;
+    border-radius:50%;
+    border:1px solid var(--burgundy);
+    background:transparent;
+    padding:0; cursor:pointer;
+  }
+  .toc button.done{ background:var(--gold-bright); border-color:var(--gold-bright); }
+  .toc button.current{ background:var(--burgundy); width:12px; height:12px; }
+  @media (max-width:900px){ .toc{ display:none; } }
+
+  /* ===== Final certificate ===== */
+  .certificate{
+    display:none;
+    background:var(--ink);
+    min-height:100vh;
+    align-items:center;
+    justify-content:center;
+    padding:60px 20px;
+  }
+  .certificate.active{ display:flex; }
+  .cert-card{
+    max-width:640px;
+    width:100%;
+    background:var(--paper);
+    border:1px solid var(--gold);
+    padding:52px 44px;
+    position:relative;
+  }
+  .cert-card::before{
+    content:"";
+    position:absolute; inset:10px;
+    border:1px solid rgba(122,46,46,0.25);
+  }
+  .cert-inner{ position:relative; z-index:2; }
+  .cert-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--burgundy);
+    text-align:center;
+    margin-bottom:14px;
+  }
+  .cert-card h2{
+    font-family:'Fraunces', serif;
+    font-size:2.1rem;
+    text-align:center;
+    margin:0 0 6px;
+  }
+  .cert-card .cert-name{
+    text-align:center;
+    color:var(--burgundy);
+    font-style:italic;
+    font-family:'Fraunces', serif;
+    font-size:1.2rem;
+    margin-bottom:30px;
+  }
+  .cert-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px 24px;
+    margin-bottom:26px;
+    font-size:13.5px;
+  }
+  .cert-grid .cg-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#9a9384;
+    margin-bottom:3px;
+  }
+  .romantic-meter{
+    margin:30px 0;
+    text-align:center;
+  }
+  .romantic-meter .rm-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--burgundy);
+    margin-bottom:10px;
+  }
+  .rm-track{
+    height:8px;
+    background:var(--paper-dim);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:10px;
+  }
+  .rm-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--gold), var(--burgundy));
+  }
+  .rm-verdict{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:16px;
+  }
+  .cert-actions{
+    display:flex; gap:12px; justify-content:center; margin-top:30px; flex-wrap:wrap;
+  }
+  .send-note{
+    font-size:12px;
+    color:#9a9384;
+    line-height:1.5;
+    margin-top:6px;
+  }
+
+  /* ===== Full printable dossier (built dynamically, screen-hidden) ===== */
+  #printArea{ display:none; }
+  #printArea h1{
+    font-family:'Fraunces', serif;
+    font-size:1.8rem;
+    margin-bottom:2px;
+  }
+  #printArea .pa-sub{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--burgundy);
+    margin-bottom:24px;
+  }
+  #printArea section{ margin-bottom:22px; break-inside:avoid; }
+  #printArea section h3{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--burgundy);
+    border-bottom:1px solid var(--line);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+  #printArea .pa-row{
+    display:flex;
+    gap:10px;
+    font-size:13px;
+    padding:4px 0;
+    border-bottom:1px dotted #e3ddd0;
+  }
+  #printArea .pa-row .pa-label{
+    width:220px;
+    flex-shrink:0;
+    color:#6b6558;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    padding-top:1px;
+  }
+  #printArea .pa-row .pa-val{ flex:1; white-space:pre-wrap; }
+
+  @media print{
+    body > *:not(#printArea){ display:none !important; }
+    #printArea{ display:block !important; padding:20px; color:#111; background:#fff; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== COVER ===================== -->
+  <section class="cover">
+    <div class="seal">est.<br>♥</div>
+    <div class="eyebrow">Confidential · For the Attention of the Family</div>
+    <h1>The Suitor's <em>Dossier</em></h1>
+    <p class="sub">A candid, complete profile for a man presenting himself as a candidate for marriage — his background, his build, his habits, his character, and yes, whether he is actually romantic or just says he is.</p>
+    <button class="begin-btn" onclick="beginForm()">Begin the Dossier</button>
+  </section>
+
+  <!-- ===================== FORM ===================== -->
+  <div class="wrap" id="formWrap">
+
+    <div class="toc" id="toc"></div>
+
+    <div class="progress-rail">
+      <span class="rail-title">Dossier</span>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-count" id="progressCount">Chapter 1 / 8</span>
+    </div>
+
+    <div class="container">
+      <form id="dossierForm">
+
+        <!-- CHAPTER 1: PERSONAL -->
+        <div class="chapter active" data-chapter="0">
+          <div class="chapter-index">Chapter I</div>
+          <h2>Who He Is</h2>
+          <p class="chapter-note">The basics — the facts that go on the first page of any introduction.</p>
+
+          <div class="row">
+            <div class="field">
+              <label>Full Name</label>
+              <input type="text" name="fullName" placeholder="e.g. Ahmed Karim Ben Salah" required>
+            </div>
+            <div class="field">
+              <label>Date of Birth</label>
+              <input type="date" name="dob" required>
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label>Nationality</label>
+              <input type="text" name="nationality" placeholder="e.g. Tunisian">
+            </div>
+            <div class="field">
+              <label>City of Residence</label>
+              <input type="text" name="city" placeholder="e.g. Tunis">
+            </div>
+            <div class="field">
+              <label>Religion <span class="opt">(optional)</span></label>
+              <input type="text" name="religion" placeholder="e.g. Muslim">
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>Marital History</label>
+              <select name="maritalHistory">
+                <option>Never married</option>
+                <option>Divorced</option>
+                <option>Widowed</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Do you have children?</label>
+              <select name="children">
+                <option>No</option>
+                <option>Yes</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>Phone Number</label>
+              <input type="tel" name="phone" placeholder="+216 ...">
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="you@example.com">
+            </div>
+          </div>
+          <div class="field">
+            <label>Education Level</label>
+            <select name="education">
+              <option>High school</option>
+              <option>Bachelor's degree</option>
+              <option>Master's degree</option>
+              <option>Doctorate</option>
+              <option>Vocational / trade training</option>
+              <option>Self-taught / other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CHAPTER 2: BODY -->
+        <div class="chapter" data-chapter="1">
+          <div class="chapter-index">Chapter II</div>
+          <h2>His Build</h2>
+          <p class="chapter-note">Straightforward physical facts — no filters, no flattery.</p>
+
+          <div class="row3">
+            <div class="field">
+              <label>Height (cm)</label>
+              <input type="number" name="height" placeholder="e.g. 178">
+            </div>
+            <div class="field">
+              <label>Weight (kg)</label>
+              <input type="number" name="weight" placeholder="e.g. 75">
+            </div>
+            <div class="field">
+              <label>Skin Tone</label>
+              <select name="skinTone">
+                <option>Fair</option>
+                <option>Light olive</option>
+                <option>Olive</option>
+                <option>Tan / brown</option>
+                <option>Dark</option>
+              </select>
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label>Hair Color</label>
+              <input type="text" name="hairColor" placeholder="e.g. Black">
+            </div>
+            <div class="field">
+              <label>Eye Color</label>
+              <input type="text" name="eyeColor" placeholder="e.g. Brown">
+            </div>
+            <div class="field">
+              <label>Build</label>
+              <select name="build">
+                <option>Slim</option>
+                <option>Athletic</option>
+                <option>Average</option>
+                <option>Muscular</option>
+                <option>Heavyset</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Facial Hair</label>
+            <div class="chips" data-name="facialHair">
+              <label class="chip"><input type="checkbox" value="Clean shaven">Clean shaven</label>
+              <label class="chip"><input type="checkbox" value="Mustache">Mustache</label>
+              <label class="chip"><input type="checkbox" value="Short beard">Short beard</label>
+              <label class="chip"><input type="checkbox" value="Full beard">Full beard</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Any visible health conditions or things a future spouse should know?<span class="opt"> (optional, kept confidential)</span></label>
+            <textarea name="health" placeholder="e.g. wears glasses, mild asthma, none..."></textarea>
+          </div>
+          <div class="field">
+            <label>Grooming habit</label>
+            <div class="scale" data-name="grooming">
+              <input type="radio" name="grooming" id="g1" value="Low-maintenance"><label for="g1">Low-key</label>
+              <input type="radio" name="grooming" id="g2" value="Casual care"><label for="g2">Casual</label>
+              <input type="radio" name="grooming" id="g3" value="Well-groomed"><label for="g3">Well-groomed</label>
+              <input type="radio" name="grooming" id="g4" value="Very particular"><label for="g4">Particular</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHAPTER 3: JOB & FUTURE -->
+        <div class="chapter" data-chapter="2">
+          <div class="chapter-index">Chapter III</div>
+          <h2>Work & Ambition</h2>
+          <p class="chapter-note">What he does, and where he's headed.</p>
+
+          <div class="row">
+            <div class="field">
+              <label>Job Title</label>
+              <input type="text" name="jobTitle" placeholder="e.g. Civil Engineer">
+            </div>
+            <div class="field">
+              <label>Employer / Field</label>
+              <input type="text" name="employer" placeholder="e.g. Self-employed, construction">
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>Monthly income bracket <span class="opt">(optional)</span></label>
+              <select name="income">
+                <option>Prefer not to say</option>
+                <option>Modest, steady</option>
+                <option>Comfortable</option>
+                <option>Well above average</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Owns a home?</label>
+              <select name="ownsHome">
+                <option>No</option>
+                <option>Renting</option>
+                <option>Yes, fully</option>
+                <option>Yes, with mortgage</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>5-year career plan</label>
+            <textarea name="careerPlan" placeholder="Where do you see your work going?"></textarea>
+          </div>
+          <div class="field">
+            <label>Life dreams <span class="opt">(the big ones)</span></label>
+            <textarea name="dreams" placeholder="e.g. build a family home by the sea, start a business, travel to Japan, write a book..."></textarea>
+          </div>
+        </div>
+
+        <!-- CHAPTER 4: SPORT -->
+        <div class="chapter" data-chapter="3">
+          <div class="chapter-index">Chapter IV</div>
+          <h2>Sport & Body Discipline</h2>
+          <p class="chapter-note">How active he actually is, versus how active he claims to be.</p>
+
+          <div class="field">
+            <label>Sports he practices</label>
+            <div class="chips" data-name="sports">
+              <label class="chip"><input type="checkbox" value="Football">Football</label>
+              <label class="chip"><input type="checkbox" value="Gym / weightlifting">Gym / weightlifting</label>
+              <label class="chip"><input type="checkbox" value="Running">Running</label>
+              <label class="chip"><input type="checkbox" value="Swimming">Swimming</label>
+              <label class="chip"><input type="checkbox" value="Martial arts">Martial arts</label>
+              <label class="chip"><input type="checkbox" value="Cycling">Cycling</label>
+              <label class="chip"><input type="checkbox" value="Tennis / padel">Tennis / padel</label>
+              <label class="chip"><input type="checkbox" value="Hiking">Hiking</label>
+              <label class="chip"><input type="checkbox" value="None regularly">None regularly</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>How often do you exercise?</label>
+            <div class="scale" data-name="exerciseFreq">
+              <input type="radio" name="exerciseFreq" id="e1" value="Rarely"><label for="e1">Rarely</label>
+              <input type="radio" name="exerciseFreq" id="e2" value="1-2x/week"><label for="e2">1–2x/wk</label>
+              <input type="radio" name="exerciseFreq" id="e3" value="3-4x/week"><label for="e3">3–4x/wk</label>
+              <input type="radio" name="exerciseFreq" id="e4" value="Daily"><label for="e4">Daily</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Favorite sports team to watch <span class="opt">(optional)</span></label>
+            <input type="text" name="favTeam" placeholder="e.g. Espérance de Tunis">
+          </div>
+        </div>
+
+        <!-- CHAPTER 5: LIKES -->
+        <div class="chapter" data-chapter="4">
+          <div class="chapter-index">Chapter V</div>
+          <h2>What He Likes</h2>
+          <p class="chapter-note">Tastes, hobbies, and the way he spends a free evening.</p>
+
+          <div class="field">
+            <label>Hobbies & interests</label>
+            <div class="chips" data-name="hobbies">
+              <label class="chip"><input type="checkbox" value="Reading">Reading</label>
+              <label class="chip"><input type="checkbox" value="Cooking">Cooking</label>
+              <label class="chip"><input type="checkbox" value="Music">Music</label>
+              <label class="chip"><input type="checkbox" value="Gaming">Gaming</label>
+              <label class="chip"><input type="checkbox" value="Photography">Photography</label>
+              <label class="chip"><input type="checkbox" value="Travel">Travel</label>
+              <label class="chip"><input type="checkbox" value="Art & painting">Art & painting</label>
+              <label class="chip"><input type="checkbox" value="Cars">Cars</label>
+              <label class="chip"><input type="checkbox" value="Gardening">Gardening</label>
+              <label class="chip"><input type="checkbox" value="Writing">Writing</label>
+              <label class="chip"><input type="checkbox" value="Volunteering">Volunteering</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>Favorite cuisine</label>
+              <input type="text" name="cuisine" placeholder="e.g. Tunisian, Italian, Japanese...">
+            </div>
+            <div class="field">
+              <label>Favorite music genre</label>
+              <input type="text" name="music" placeholder="e.g. Malouf, jazz, pop...">
+            </div>
+          </div>
+          <div class="field">
+            <label>Ideal Friday evening</label>
+            <textarea name="idealEvening" placeholder="Describe how you'd actually want to spend it"></textarea>
+          </div>
+          <div class="field">
+            <label>Pets</label>
+            <select name="pets">
+              <option>Loves animals, has pets</option>
+              <option>Loves animals, no pets currently</option>
+              <option>Neutral about pets</option>
+              <option>Not a pet person</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CHAPTER 6: CHARACTER -->
+        <div class="chapter" data-chapter="5">
+          <div class="chapter-index">Chapter VI</div>
+          <h2>Character</h2>
+          <p class="chapter-note">Who he is when no one is impressing anyone.</p>
+
+          <div class="field">
+            <label>Personality traits that describe him best</label>
+            <div class="chips" data-name="traits">
+              <label class="chip"><input type="checkbox" value="Calm">Calm</label>
+              <label class="chip"><input type="checkbox" value="Ambitious">Ambitious</label>
+              <label class="chip"><input type="checkbox" value="Funny">Funny</label>
+              <label class="chip"><input type="checkbox" value="Serious">Serious</label>
+              <label class="chip"><input type="checkbox" value="Patient">Patient</label>
+              <label class="chip"><input type="checkbox" value="Stubborn">Stubborn</label>
+              <label class="chip"><input type="checkbox" value="Generous">Generous</label>
+              <label class="chip"><input type="checkbox" value="Introverted">Introverted</label>
+              <label class="chip"><input type="checkbox" value="Extroverted">Extroverted</label>
+              <label class="chip"><input type="checkbox" value="Organized">Organized</label>
+              <label class="chip"><input type="checkbox" value="Spontaneous">Spontaneous</label>
+              <label class="chip"><input type="checkbox" value="Protective">Protective</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>How do you handle disagreements?</label>
+            <select name="conflictStyle">
+              <option>Talk it through immediately</option>
+              <option>Need time alone to cool down first</option>
+              <option>Avoid conflict when possible</option>
+              <option>Get intense but resolve quickly</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>Biggest strength</label>
+              <input type="text" name="strength" placeholder="e.g. loyalty, patience...">
+            </div>
+            <div class="field">
+              <label>Something you're working on</label>
+              <input type="text" name="weakness" placeholder="e.g. temper, punctuality...">
+            </div>
+          </div>
+          <div class="field">
+            <label>What do close friends say about you?</label>
+            <textarea name="friendsSay" placeholder="Be honest — even the unflattering bits"></textarea>
+          </div>
+        </div>
+
+        <!-- CHAPTER 7: THE ROMANCE TEST -->
+        <div class="chapter" data-chapter="6">
+          <div class="chapter-index">Chapter VII</div>
+          <h2>Is He Actually Romantic?</h2>
+          <p class="chapter-note">A short, honest test. Answer as you would actually behave — not as you'd like to be seen.</p>
+
+          <div class="quiz-q">
+            <div class="qtext">Q1. It's your partner's birthday. What do you do?</div>
+            <label class="quiz-opt"><input type="radio" name="q1" value="3">Plan something meaningful weeks in advance, even a small surprise.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="2">Get a nice gift and take her out — solid, no big surprise.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="1">Say happy birthday and figure out a gift that day.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="0">Honestly, I sometimes forget dates.</label>
+          </div>
+          <div class="quiz-q">
+            <div class="qtext">Q2. How do you usually express affection?</div>
+            <label class="quiz-opt"><input type="radio" name="q2" value="3">Words, small gestures, and physical affection — all of it, often.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="2">Mostly through actions — helping out, showing up, being reliable.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="1">I show it, but I'm not big on saying it out loud.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="0">I assume she knows without me needing to show it.</label>
+          </div>
+          <div class="quiz-q">
+            <div class="qtext">Q3. She's had a bad day. Your first move?</div>
+            <label class="quiz-opt"><input type="radio" name="q3" value="3">Ask what happened, listen fully, then ask how I can help.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="2">Try to cheer her up or distract her with something fun.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="1">Offer quick advice to fix the problem.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="0">Give her space and let her come to me.</label>
+          </div>
+          <div class="quiz-q">
+            <div class="qtext">Q4. Do you remember small details she mentions in passing?</div>
+            <label class="quiz-opt"><input type="radio" name="q4" value="3">Yes, and I often bring them up later to show I remembered.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="2">Usually, if it matters.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="1">Sometimes, if I'm paying close attention.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="0">Not really, details slip my mind.</label>
+          </div>
+          <div class="quiz-q">
+            <div class="qtext">Q5. Planning the future together excites you because...</div>
+            <label class="quiz-opt"><input type="radio" name="q5" value="3">I genuinely love imagining a life built together, day to day.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="2">It feels like the right, responsible next step.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="1">I haven't thought about it in much detail yet.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="0">I focus more on today than long-term plans.</label>
+          </div>
+        </div>
+
+        <!-- CHAPTER 8: WHAT HE'S LOOKING FOR -->
+        <div class="chapter" data-chapter="7">
+          <div class="chapter-index">Chapter VIII</div>
+          <h2>What He's Looking For</h2>
+          <p class="chapter-note">The final page — what kind of partnership he's hoping to build.</p>
+
+          <div class="field">
+            <label>Qualities you're looking for in a spouse</label>
+            <div class="chips" data-name="lookingFor">
+              <label class="chip"><input type="checkbox" value="Kindness">Kindness</label>
+              <label class="chip"><input type="checkbox" value="Ambition">Ambition</label>
+              <label class="chip"><input type="checkbox" value="Sense of humor">Sense of humor</label>
+              <label class="chip"><input type="checkbox" value="Family-oriented">Family-oriented</label>
+              <label class="chip"><input type="checkbox" value="Independence">Independence</label>
+              <label class="chip"><input type="checkbox" value="Shared faith/values">Shared faith / values</label>
+              <label class="chip"><input type="checkbox" value="Intelligence">Intelligence</label>
+              <label class="chip"><input type="checkbox" value="Supportive">Supportive</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>View on family life</label>
+            <select name="familyView">
+              <option>Wants children soon</option>
+              <option>Wants children eventually</option>
+              <option>Open, undecided</option>
+              <option>Prefers not to have children</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>In one paragraph, describe the kind of marriage you want to build</label>
+            <textarea name="marriageVision" placeholder="Speak plainly, this is the part people actually read"></textarea>
+          </div>
+          <div class="field">
+            <label>Anything else worth knowing about you?</label>
+            <textarea name="extra"></textarea>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button type="button" class="btn" id="prevBtn" onclick="changeChapter(-1)">← Back</button>
+          <button type="button" class="btn primary" id="nextBtn" onclick="changeChapter(1)">Continue →</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== CERTIFICATE / SUMMARY ===================== -->
+  <section class="certificate" id="certificate">
+    <div class="cert-card">
+      <div class="cert-inner">
+        <div class="cert-eyebrow">Dossier Complete</div>
+        <h2>Profile Sealed</h2>
+        <div class="cert-name" id="certName">—</div>
+        <div class="cert-grid" id="certGrid"></div>
+        <div class="romantic-meter">
+          <div class="rm-label">Romantic Index</div>
+          <div class="rm-track"><div class="rm-fill" id="rmFill" style="width:0%"></div></div>
+          <div class="rm-verdict" id="rmVerdict">—</div>
+        </div>
+        <div class="field" style="margin-top:6px;">
+          <label>Send this dossier to <span class="opt">(matchmaker or family email)</span></label>
+          <input type="email" id="sendToEmail" placeholder="recipient@example.com">
+          <div class="send-note">Opens your email app with the full dossier pre-filled — nothing is sent from this page automatically. If the dossier is long, your email app may trim it; the full text is also copied to your clipboard as a backup.</div>
+        </div>
+        <div class="cert-actions">
+          <button class="btn" onclick="location.reload()">Start Over</button>
+          <button class="btn" onclick="printDossier()">Print Dossier</button>
+          <button class="btn primary" onclick="sendDossier()">Send Dossier</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full printable dossier, built at print/send time, hidden on screen -->
+  <div id="printArea"></div>
+
+<script>
+  const chapters = document.querySelectorAll('.chapter');
+  let current = 0;
+
+  function beginForm(){
+    document.querySelector('.cover').style.display = 'none';
+    document.getElementById('formWrap').classList.add('active');
+    buildToc();
+    updateProgress();
+    window.scrollTo(0,0);
+  }
+
+  function buildToc(){
+    const toc = document.getElementById('toc');
+    toc.innerHTML = '';
+    chapters.forEach((c,i)=>{
+      const b = document.createElement('button');
+      b.title = 'Chapter ' + (i+1);
+      b.onclick = ()=>{ goTo(i); };
+      toc.appendChild(b);
+    });
+    refreshToc();
+  }
+  function refreshToc(){
+    document.querySelectorAll('#toc button').forEach((b,i)=>{
+      b.classList.toggle('current', i===current);
+      b.classList.toggle('done', i<current);
+    });
+  }
+
+  function updateProgress(){
+    const pct = ((current+1)/chapters.length)*100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = `Chapter ${current+1} / ${chapters.length}`;
+    document.getElementById('prevBtn').disabled = current===0;
+    document.getElementById('nextBtn').textContent = (current===chapters.length-1) ? 'Seal the Dossier →' : 'Continue →';
+    refreshToc();
+  }
+
+  function goTo(i){
+    chapters[current].classList.remove('active');
+    current = i;
+    chapters[current].classList.add('active');
+    updateProgress();
+    document.querySelector('.progress-rail').scrollIntoView({behavior:'smooth'});
+  }
+
+  function changeChapter(dir){
+    if(dir>0 && current===chapters.length-1){
+      finishDossier();
+      return;
+    }
+    const next = current + dir;
+    if(next<0 || next>=chapters.length) return;
+    goTo(next);
+  }
+
+  // chip toggle behavior
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const input = chip.querySelector('input');
+      input.checked = !input.checked;
+      chip.classList.toggle('selected', input.checked);
+    });
+  });
+
+  function getChipValues(name){
+    const group = document.querySelector(`.chips[data-name="${name}"]`);
+    if(!group) return [];
+    return Array.from(group.querySelectorAll('input:checked')).map(i=>i.value);
+  }
+
+  function finishDossier(){
+    const form = document.getElementById('dossierForm');
+    const fd = new FormData(form);
+
+    const fullName = fd.get('fullName') || 'Unnamed Candidate';
+    const city = fd.get('city') || '—';
+    const job = fd.get('jobTitle') || '—';
+    const height = fd.get('height') || '—';
+    const build = fd.get('build') || '—';
+    const traits = getChipValues('traits').slice(0,4).join(', ') || '—';
+    const hobbies = getChipValues('hobbies').slice(0,4).join(', ') || '—';
+    const sports = getChipValues('sports').slice(0,3).join(', ') || '—';
+
+    document.getElementById('certName').textContent = fullName;
+    const grid = document.getElementById('certGrid');
+    grid.innerHTML = '';
+    const rows = [
+      ['Residence', city],
+      ['Occupation', job],
+      ['Height / Build', `${height} cm, ${build}`],
+      ['Key Traits', traits],
+      ['Hobbies', hobbies],
+      ['Sports', sports],
+    ];
+    rows.forEach(([label,val])=>{
+      const d = document.createElement('div');
+      d.innerHTML = `<div class="cg-label">${label}</div><div>${val}</div>`;
+      grid.appendChild(d);
+    });
+
+    // romantic score
+    let score = 0, answered = 0;
+    ['q1','q2','q3','q4','q5'].forEach(q=>{
+      const val = fd.get(q);
+      if(val!==null){ score += parseInt(val); answered++; }
+    });
+    const maxScore = 15;
+    const pct = answered ? Math.round((score/maxScore)*100) : 0;
+    document.getElementById('rmFill').style.width = pct + '%';
+
+    let verdict;
+    if(pct>=80) verdict = "A true romantic — writes the poem, remembers the date.";
+    else if(pct>=55) verdict = "Genuinely thoughtful, in his own steady way.";
+    else if(pct>=30) verdict = "Caring, but romance isn't his first language.";
+    else verdict = "Practical to the core — love shows up as reliability, not roses.";
+    document.getElementById('rmVerdict').textContent = `${pct}% — ${verdict}`;
+    lastRomantic = { pct, verdict };
+
+    document.getElementById('formWrap').classList.remove('active');
+    document.getElementById('certificate').classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  let lastRomantic = { pct:0, verdict:'—' };
+
+  // Field label lookup, in dossier order, chapter by chapter
+  const DOSSIER_SCHEMA = [
+    { title:'Chapter I — Who He Is', fields:[
+      ['fullName','Full Name'], ['dob','Date of Birth'], ['nationality','Nationality'],
+      ['city','City of Residence'], ['religion','Religion'], ['maritalHistory','Marital History'],
+      ['children','Has Children'], ['phone','Phone Number'], ['email','Email'], ['education','Education Level'],
+    ]},
+    { title:'Chapter II — His Build', fields:[
+      ['height','Height (cm)'], ['weight','Weight (kg)'], ['skinTone','Skin Tone'],
+      ['hairColor','Hair Color'], ['eyeColor','Eye Color'], ['build','Build'],
+      ['facialHair','Facial Hair', 'chip'], ['health','Health Notes'], ['grooming','Grooming Habit'],
+    ]},
+    { title:'Chapter III — Work & Ambition', fields:[
+      ['jobTitle','Job Title'], ['employer','Employer / Field'], ['income','Income Bracket'],
+      ['ownsHome','Owns a Home'], ['careerPlan','5-Year Career Plan'], ['dreams','Life Dreams'],
+    ]},
+    { title:'Chapter IV — Sport & Discipline', fields:[
+      ['sports','Sports Practiced','chip'], ['exerciseFreq','Exercise Frequency'], ['favTeam','Favorite Team'],
+    ]},
+    { title:'Chapter V — What He Likes', fields:[
+      ['hobbies','Hobbies & Interests','chip'], ['cuisine','Favorite Cuisine'], ['music','Favorite Music'],
+      ['idealEvening','Ideal Friday Evening'], ['pets','Pets'],
+    ]},
+    { title:'Chapter VI — Character', fields:[
+      ['traits','Personality Traits','chip'], ['conflictStyle','Conflict Style'],
+      ['strength','Biggest Strength'], ['weakness','Working On'], ['friendsSay','What Friends Say'],
+    ]},
+    { title:'Chapter VII — Romantic Index', fields:[
+      ['q1','Q1 — Birthday response'], ['q2','Q2 — Expressing affection'],
+      ['q3','Q3 — Response to a bad day'], ['q4','Q4 — Remembers small details'],
+      ['q5','Q5 — Excitement for the future'],
+    ]},
+    { title:'Chapter VIII — What He\'s Looking For', fields:[
+      ['lookingFor','Qualities Wanted','chip'], ['familyView','View on Family Life'],
+      ['marriageVision','Marriage Vision'], ['extra','Anything Else'],
+    ]},
+  ];
+
+  const QUIZ_LABELS = {
+    q1:{3:'Plans something meaningful weeks ahead',2:'Gets a nice gift, no big surprise',1:'Sorts a gift the same day',0:'Sometimes forgets dates'},
+    q2:{3:'Words, gestures and affection, often',2:'Mostly through actions',1:'Shows it, rarely says it',0:'Assumes she already knows'},
+    q3:{3:'Listens fully, then asks how to help',2:'Tries to cheer her up',1:'Offers quick advice',0:'Gives her space'},
+    q4:{3:'Remembers and brings details up later',2:'Usually, if it matters',1:'Sometimes, with attention',0:'Details slip his mind'},
+    q5:{3:'Loves imagining daily life together',2:'Feels like the responsible next step',1:'Hasn\'t thought it through yet',0:'Focuses on today over the future'},
+  };
+
+  function collectDossierData(){
+    const form = document.getElementById('dossierForm');
+    const fd = new FormData(form);
+    const chaptersOut = DOSSIER_SCHEMA.map(chap=>{
+      const fields = chap.fields.map(([name,label,type])=>{
+        let val;
+        if(type==='chip') val = getChipValues(name).join(', ') || '—';
+        else if(name.match(/^q[1-5]$/)) val = QUIZ_LABELS[name][fd.get(name)] || 'Not answered';
+        else val = fd.get(name) || '—';
+        return { label, val };
+      });
+      return { title: chap.title, fields };
+    });
+    return chaptersOut;
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  }
+
+  function buildPrintArea(){
+    const data = collectDossierData();
+    const fullName = document.getElementById('certName').textContent || 'Candidate';
+    let html = `<h1>The Suitor's Dossier</h1><div class="pa-sub">${escapeHtml(fullName)} · Romantic Index ${lastRomantic.pct}% — ${escapeHtml(lastRomantic.verdict)}</div>`;
+    data.forEach(chap=>{
+      html += `<section><h3>${escapeHtml(chap.title)}</h3>`;
+      chap.fields.forEach(f=>{
+        html += `<div class="pa-row"><div class="pa-label">${escapeHtml(f.label)}</div><div class="pa-val">${escapeHtml(f.val)}</div></div>`;
+      });
+      html += `</section>`;
+    });
+    document.getElementById('printArea').innerHTML = html;
+  }
+
+  function printDossier(){
+    buildPrintArea();
+    // give the browser a tick to render before opening the print dialog
+    setTimeout(()=>window.print(), 50);
+  }
+
+  function buildPlainTextDossier(){
+    const data = collectDossierData();
+    const fullName = document.getElementById('certName').textContent || 'Candidate';
+    let text = `THE SUITOR'S DOSSIER\n${fullName}\nRomantic Index: ${lastRomantic.pct}% — ${lastRomantic.verdict}\n`;
+    data.forEach(chap=>{
+      text += `\n${chap.title}\n${'-'.repeat(chap.title.length)}\n`;
+      chap.fields.forEach(f=>{
+        text += `${f.label}: ${f.val}\n`;
+      });
+    });
+    return text;
+  }
+
+  function sendDossier(){
+    const recipient = (document.getElementById('sendToEmail').value || '').trim();
+    if(!recipient || !recipient.includes('@')){
+      alert('Please enter a valid recipient email address first.');
+      return;
+    }
+    const fullName = document.getElementById('certName').textContent || 'Candidate';
+    const text = buildPlainTextDossier();
+
+    // Best-effort backup: copy the full text to the clipboard in case the
+    // email app truncates a long mailto body.
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(text).catch(()=>{});
+    }
+
+    const subject = encodeURIComponent(`Suitor's Dossier — ${fullName}`);
+    const body = encodeURIComponent(text);
+    const mailto = `mailto:${encodeURIComponent(recipient)}?subject=${subject}&body=${body}`;
+
+    // This page has no server, so it cannot send email on its own — it opens
+    // the visitor's own email application with everything pre-filled instead.
+    window.location.href = mailto;
+  }
+</script>
+</body>
+</html>
