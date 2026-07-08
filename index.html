@@ -7,6 +7,71 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
+  /* ===== Premium Language Header Switcher ===== */
+.lang-header {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  z-index: 150;
+}
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 12px;
+  border-radius: 30px;
+  color: #fbf9f4;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lang-btn:hover {
+  background: var(--gold-bright);
+  color: var(--ink);
+  border-color: var(--gold-bright);
+  transform: translateY(-1px);
+}
+.lang-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--gold-bright);
+  pointer-events: none;
+}
+
+/* Structural adjustment for light theme within the form page wrapper */
+.wrap .lang-header {
+  top: 12px;
+  right: 24px;
+}
+.wrap .lang-btn {
+  background: rgba(32, 35, 42, 0.05);
+  border-color: rgba(32, 35, 42, 0.1);
+  color: var(--ink);
+}
+.wrap .lang-btn:hover {
+  background: var(--burgundy);
+  color: #fff;
+  border-color: var(--burgundy);
+}
+.wrap .lang-btn.active {
+  background: var(--paper-dim);
+  border-color: var(--burgundy);
+}
+
+@media (max-width: 640px) {
+  .lang-header { top: 16px; right: 16px; gap: 4px; }
+  .lang-btn { padding: 6px 10px; }
+  .lang-btn span { display: none; } /* Hides language text on mobile to conserve screen space */
+}
+  
   :root{
     --ink:#20232a;
     --paper:#fbf9f4;
@@ -540,12 +605,23 @@
 
   <!-- ===================== COVER ===================== -->
   <section class="cover">
+    <section class="cover">
+  <!-- Dynamic Language Switcher Node -->
+  <div class="lang-header">
+    <a href="index.html" class="lang-btn active">🇬🇧 <span>EN</span></a>
+    <a href="index_ar.html" class="lang-btn">🇹🇳 <span>AR</span></a>
+    <a href="index_fr.html" class="lang-btn">🇫🇷 <span>FR</span></a>
+    <a href="index_de.html" class="lang-btn">🇩🇪 <span>DE</span></a>
+  </div>
+
+  <div class="cover-decor" aria-hidden="true">
     <div class="seal">est.<br>♥</div>
     <div class="eyebrow">Confidential · For the Attention of the Family</div>
     <h1>The Suitor's <em>Dossier</em></h1>
     <p class="sub">A candid, complete profile for a man presenting himself as a candidate for marriage — his background, his build, his habits, his character, and yes, whether he is actually romantic or just says he is.</p>
     <button class="begin-btn" onclick="beginForm()">Begin the Dossier</button>
-  </section>
+  </div>
+    </section>
 
   <!-- ===================== FORM ===================== -->
   <div class="wrap" id="formWrap">
