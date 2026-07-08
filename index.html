@@ -9,6 +9,78 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
+
+ .lang-header {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  max-width: 320px; /* Prevents the row from breaking your text layout */
+  z-index: 150;
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px;
+  border-radius: 4px; /* Crisp square-mini look */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lang-btn:hover {
+  background: var(--gold-bright);
+  border-color: var(--gold-bright);
+  transform: scale(1.1);
+}
+
+.lang-btn.active {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.4);
+  pointer-events: none;
+}
+
+.flag-img {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Light theme adjustment inside the form view */
+.wrap .lang-header {
+  top: 16px;
+  right: 24px;
+}
+.wrap .lang-btn {
+  background: rgba(32, 35, 42, 0.05);
+  border-color: rgba(32, 35, 42, 0.1);
+}
+.wrap .lang-btn:hover {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+}
+.wrap .lang-btn.active {
+  background: rgba(122, 46, 46, 0.1);
+  border-color: var(--burgundy);
+}
+
+@media (max-width: 640px) {
+  .lang-header {
+    top: 12px;
+    right: 12px;
+    max-width: 180px; /* Shrinks to a clean 4x4 matrix row on small smartphones */
+    gap: 4px;
+  }
+}
   :root{
     --ink:#20232a;
     --paper:#fbf9f4;
@@ -720,6 +792,8 @@
 
   <!-- ===================== COVER ===================== -->
   <section class="cover">
+ <div class="lang-header" id="globalFlagTray"></div>
+  
     <div class="cover-decor" aria-hidden="true">
       <span style="left:8%; top:20%; animation-delay:0s;">💌</span>
       <span style="left:85%; top:15%; animation-delay:.6s;">💘</span>
@@ -921,6 +995,14 @@
                 <option>Renting</option>
                 <option>Yes, fully</option>
                 <option>Yes, with mortgage</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Vehicle Ownership Status</label>
+              <select name="ownsCar">
+                <option>No</option>
+                <option>Yes</option>
+                <option>Coming soon, Inshallah</option>
               </select>
             </div>
           </div>
@@ -1403,7 +1485,7 @@
     ]},
     { title:'Chapter III — Work & Ambition 💼🚀', fields:[
       ['jobTitle','Job Title'], ['employer','Employer / Field'], ['income','Income Bracket'],
-      ['ownsHome','Owns a Home'], ['careerPlan','5-Year Career Plan'], ['dreams','Life Dreams'],
+      ['ownsHome','Owns a Home'],['ownsCar','Vehicle Status'], ['careerPlan','5-Year Career Plan'], ['dreams','Life Dreams'],
     ]},
     { title:'Chapter IV — Sport & Discipline 🏋️‍♂️⚽', fields:[
       ['sports','Sports Practiced','chip'], ['exerciseFreq','Exercise Frequency'], ['favTeam','Favorite Team'],
@@ -1621,6 +1703,50 @@ window.open(testURL);
     }
   }
 
+// Dynamic Country Flag Matrix Injection
+document.addEventListener("DOMContentLoaded", () => {
+  const countries = [
+    { code: "gb", lang: "en", title: "English" },
+    { code: "sa", lang: "ar", title: "العربية" },
+    { code: "tn", lang: "tn", title: "التونسية" },
+    { code: "fr", lang: "fr", title: "Français" },
+    { code: "de", lang: "de", title: "Deutsch" },
+    { code: "dz", lang: "dz", title: "الجزائرية" },
+    { code: "ma", lang: "ma", title: "المغربية" },
+    { code: "ly", lang: "ly", title: "الليبية" },
+    { code: "eg", lang: "eg", title: "المصرية" },
+    { code: "ae", lang: "ae", title: "الإماراتية" },
+    { code: "kw", lang: "kw", title: "الكويتية" },
+    { code: "qa", lang: "qa", title: "القطرية" },
+    { code: "it", lang: "it", title: "Italiano" },
+    { code: "es", lang: "es", title: "Español" },
+    { code: "tr", lang: "tr", title: "Türkçe" },
+    { code: "ca", lang: "ca", title: "Canada" },
+    { code: "us", lang: "us", title: "USA" },
+    { code: "jp", lang: "jp", title: "日本語" },
+    { code: "kr", lang: "kr", title: "한국어" }
+  ];
+
+  // Identifies active page to automatically add the active class styling 
+  const currentFile = window.location.pathname.split("/").pop() || "index.html";
+  const trayContainer = document.getElementById("globalFlagTray");
+
+  if (trayContainer) {
+    trayContainer.innerHTML = countries.map(c => {
+      const targetPage = `index_${c.lang}.html`;
+      const isDefault = c.lang === "en" && currentFile === "index.html";
+      const isActive = currentFile === targetPage || isDefault;
+      
+      return `
+        <a href="${c.lang === "en" ? "index.html" : targetPage}" 
+           class="lang-btn ${isActive ? 'active' : ''}" 
+           title="${c.title}">
+          <img src="https://flagcdn.com/w40/${c.code}.png" class="flag-img" alt="${c.title}">
+        </a>
+      `;
+    }).join("");
+  }
+});
 </script>
 </body>
 </html>
