@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💘 Marriage Applicant Dossier (The Cute Version) 💘</title>
+<title>💘 The Suitor's Dossier (Cutie Edition) 💘</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght=0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -68,18 +68,18 @@
   }
   .cover .eyebrow{
     font-family:'JetBrains Mono', monospace;
-    letter-spacing:0.15em;
+    letter-spacing:0.35em;
     text-transform:uppercase;
-    font-size:12px;
+    font-size:11px;
     color:var(--gold-bright);
     margin-bottom:22px;
   }
   .cover h1{
     font-family:'Fraunces', serif;
-    font-weight:700;
-    font-size:clamp(2.3rem, 6vw, 4.5rem);
+    font-weight:600;
+    font-size:clamp(2.6rem, 6vw, 5rem);
     margin:0 0 18px;
-    line-height:1.2;
+    line-height:1.02;
   }
   .cover h1 em{
     font-style:italic;
@@ -89,7 +89,7 @@
   .cover p.sub{
     max-width:520px;
     font-size:16px;
-    line-height:1.8;
+    line-height:1.7;
     color:#cfc9bd;
     margin:0 0 40px;
   }
@@ -99,9 +99,11 @@
     border:2px solid var(--gold-bright);
     display:flex;align-items:center;justify-content:center;
     font-family:'Fraunces', serif;
-    font-size:15px;
+    font-style:italic;
+    font-size:13px;
     color:var(--gold-bright);
     margin-bottom:34px;
+    letter-spacing:0.05em;
     position:relative;
   }
   .seal::before, .seal::after{
@@ -113,9 +115,10 @@
   }
   .seal::after{ inset:-16px; border-color:rgba(201,162,39,0.12); }
   .begin-btn{
-    font-family:'Inter', sans-serif;
-    font-weight:600;
-    font-size:14px;
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    font-size:13px;
     background:var(--gold-bright);
     color:var(--ink);
     border:none;
@@ -142,9 +145,9 @@
   }
   .progress-rail .rail-title{
     font-family:'Fraunces', serif;
-    font-weight:700;
+    font-style:italic;
     color:var(--gold-bright);
-    font-size:18px;
+    font-size:15px;
     white-space:nowrap;
   }
   .progress-track{
@@ -162,7 +165,7 @@
     transition:width .4s ease;
   }
   .progress-count{
-    font-family:'Inter', sans-serif;
+    font-family:'JetBrains Mono', monospace;
     color:#cfc9bd;
     font-size:12px;
     white-space:nowrap;
@@ -182,24 +185,25 @@
   @keyframes fadein{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
 
   .chapter-index{
-    font-family:'Inter', sans-serif;
+    font-family:'JetBrains Mono', monospace;
     color:var(--burgundy);
-    font-size:13px;
-    font-weight:700;
+    font-size:12px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
     margin-bottom:10px;
     display:flex;
     align-items:center;
     gap:10px;
   }
-  .chapter-index::after{
+  .chapter-index::before{
     content:"";
     width:26px; height:1px;
     background:var(--gold);
   }
   .chapter h2{
     font-family:'Fraunces', serif;
-    font-weight:700;
-    font-size:clamp(1.6rem, 3.4vw, 2.3rem);
+    font-weight:600;
+    font-size:clamp(1.8rem, 3.4vw, 2.5rem);
     margin:0 0 8px;
     color:var(--ink);
   }
@@ -207,7 +211,7 @@
     color:#6b6558;
     font-size:14.5px;
     max-width:52ch;
-    line-height:1.7;
+    line-height:1.6;
     margin:0 0 40px;
   }
 
@@ -216,10 +220,11 @@
   }
   .field label{
     display:block;
-    font-size:14px;
-    font-weight:700;
+    font-size:13px;
+    font-weight:600;
     color:var(--ink);
     margin-bottom:8px;
+    letter-spacing:0.01em;
   }
   .field label .opt{
     font-weight:400;
@@ -244,7 +249,7 @@
     color:var(--ink);
     transition:border-color .15s ease, box-shadow .15s ease;
   }
-  .field textarea{ resize:vertical; min-height:90px; line-height:1.7; }
+  .field textarea{ resize:vertical; min-height:90px; line-height:1.6; }
   .field input:focus, .field select:focus, .field textarea:focus{
     outline:none;
     border-color:var(--burgundy);
@@ -300,7 +305,7 @@
     border:1px solid var(--line);
     border-radius:var(--radius);
     padding:11px 4px;
-    font-size:13px;
+    font-size:12.5px;
     cursor:pointer;
     background:#fff;
     transition:all .15s ease;
@@ -310,7 +315,7 @@
     background:var(--gold-bright);
     border-color:var(--gold-bright);
     color:var(--ink);
-    font-weight:700;
+    font-weight:600;
   }
 
   /* radio card for romantic quiz */
@@ -323,8 +328,8 @@
   }
   .quiz-q .qtext{
     font-family:'Fraunces', serif;
-    font-size:16px;
-    font-weight:700;
+    font-size:17px;
+    font-style:italic;
     margin-bottom:16px;
     color:var(--ink);
   }
@@ -336,11 +341,11 @@
     border-radius:3px;
     cursor:pointer;
     font-size:14px;
-    line-height:1.6;
+    line-height:1.5;
     transition:background .15s ease;
   }
   .quiz-opt:hover{ background:rgba(122,46,46,0.05); }
-  .quiz-opt input{ margin-top:5px; }
+  .quiz-opt input{ margin-top:3px; }
 
   .nav-buttons{
     display:flex;
@@ -351,9 +356,10 @@
     border-top:1px solid var(--line);
   }
   .btn{
-    font-family:'Inter', sans-serif;
-    font-weight:600;
-    font-size:13px;
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-size:12.5px;
     padding:14px 26px;
     border-radius:2px;
     cursor:pointer;
@@ -416,25 +422,26 @@
   }
   .cert-inner{ position:relative; z-index:2; }
   .cert-eyebrow{
-    font-family:'Inter', sans-serif;
-    font-weight:700;
-    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
     color:var(--burgundy);
     text-align:center;
     margin-bottom:14px;
   }
   .cert-card h2{
     font-family:'Fraunces', serif;
-    font-size:2rem;
+    font-size:2.1rem;
     text-align:center;
     margin:0 0 6px;
   }
-  .cert-name{
+  .cert-card .cert-name{
     text-align:center;
     color:var(--burgundy);
+    font-style:italic;
     font-family:'Fraunces', serif;
-    font-weight:700;
-    font-size:1.5rem;
+    font-size:1.2rem;
     margin-bottom:30px;
   }
   .cert-grid{
@@ -442,12 +449,13 @@
     grid-template-columns:1fr 1fr;
     gap:16px 24px;
     margin-bottom:26px;
-    font-size:14px;
+    font-size:13.5px;
   }
   .cert-grid .cg-label{
-    font-family:'Inter', sans-serif;
-    font-weight:700;
-    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
     color:#9a9384;
     margin-bottom:3px;
   }
@@ -456,9 +464,10 @@
     text-align:center;
   }
   .romantic-meter .rm-label{
-    font-family:'Inter', sans-serif;
-    font-weight:700;
-    font-size:13px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
     color:var(--burgundy);
     margin-bottom:10px;
   }
@@ -475,20 +484,23 @@
     background:linear-gradient(90deg, var(--gold), var(--burgundy));
   }
   .rm-verdict{
-    font-family:'Inter', sans-serif;
-    font-size:15px;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:16px;
   }
   .cert-actions{
     display:flex; gap:12px; justify-content:center; margin-top:30px; flex-wrap:wrap;
   }
   .send-note{
-    font-size:13px;
+    font-size:12px;
     color:#9a9384;
-    line-height:1.6;
+    line-height:1.5;
     margin-top:6px;
   }
 
-  /* ===== Full printable dossier ===== */
+  /* ===== Full printable dossier (built dynamically, screen-hidden) =====
+     Mirrors the on-screen design: ink cover banner, paper chapter cards,
+     burgundy/gold accents, romance meter bar. */
   #printArea{ display:none; }
   #printArea, #printArea *{
     -webkit-print-color-adjust:exact;
@@ -515,28 +527,31 @@
     pointer-events:none;
   }
   #printArea .pa-eyebrow{
-    font-family:'Inter', sans-serif;
-    font-size:11px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
     color:var(--gold-bright);
     margin-bottom:12px;
   }
   #printArea .pa-banner h1{
     font-family:'Fraunces', serif;
-    font-weight:700;
-    font-size:2rem;
+    font-weight:600;
+    font-size:2.1rem;
     margin:0 0 6px;
   }
   #printArea .pa-banner h1 em{ font-style:italic; font-weight:400; color:var(--gold-bright); }
   #printArea .pa-name{
     font-family:'Fraunces', serif;
-    font-size:1.3rem;
+    font-style:italic;
+    font-size:1.15rem;
     color:var(--gold-bright);
     margin-bottom:18px;
   }
   #printArea .pa-meter-wrap{ max-width:320px; margin:0 auto; }
   #printArea .pa-meter-label{
-    font-family:'Inter', sans-serif;
-    font-size:11px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px; letter-spacing:0.15em; text-transform:uppercase;
     color:var(--gold-bright); margin-bottom:6px;
   }
   #printArea .pa-meter-track{
@@ -546,7 +561,7 @@
   #printArea .pa-meter-fill{
     height:100%; background:linear-gradient(90deg, var(--gold), var(--burgundy));
   }
-  #printArea .pa-meter-verdict{ font-size:13px; color:#e6e0d3; }
+  #printArea .pa-meter-verdict{ font-size:12px; color:#e6e0d3; font-style:italic; }
 
   #printArea .pa-body{ padding:30px 26px 10px; }
   #printArea section.pa-chapter{
@@ -558,16 +573,16 @@
     break-inside:avoid;
   }
   #printArea section.pa-chapter h3{
-    font-family:'Inter', sans-serif;
-    font-weight:700;
-    font-size:15px;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:16px;
     color:var(--burgundy);
     margin:0 0 12px;
   }
   #printArea .pa-row{
     display:flex;
     gap:14px;
-    font-size:13.5px;
+    font-size:12.5px;
     padding:6px 0;
     border-bottom:1px dotted var(--line);
   }
@@ -576,9 +591,10 @@
     width:190px;
     flex-shrink:0;
     color:#7a7566;
-    font-family:'Inter', sans-serif;
-    font-weight:700;
-    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
     padding-top:2px;
   }
   #printArea .pa-row .pa-val{ flex:1; white-space:pre-wrap; color:var(--ink); }
@@ -589,13 +605,15 @@
     background:#fff;
     border:1px solid var(--line);
     border-radius:12px;
-    font-size:12px;
+    font-size:11.5px;
     color:var(--ink);
   }
   #printArea .pa-footer{
     text-align:center;
-    font-family:'Inter', sans-serif;
-    font-size:11px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
     color:#9a9384;
     padding:16px 0 30px;
   }
@@ -606,7 +624,7 @@
     #mascot{ display:none !important; }
   }
 
-  /* ===== Mechanics & Animations ===== */
+  /* ===== Fun & games: mascot, confetti, wiggles ===== */
   @keyframes bob{
     0%,100%{ transform:translateY(0) rotate(-2deg); }
     50%{ transform:translateY(-10px) rotate(3deg); }
@@ -666,10 +684,10 @@
     color:var(--ink);
     padding:10px 14px;
     border-radius:14px 14px 14px 3px;
-    font-size:13px;
+    font-size:12.5px;
     font-family:'Inter', sans-serif;
     max-width:220px;
-    line-height:1.5;
+    line-height:1.4;
     box-shadow:var(--shadow);
     animation:speechIn .25s ease;
     margin-bottom:6px;
@@ -696,8 +714,8 @@
 
   <!-- ===================== MASCOT ===================== -->
   <div id="mascot">
+    <div id="mascotBubble">Hi! I'm Cupid Jr. 🏹 I'll be cheering you on. No pressure. 😅</div>
     <div id="mascotFace">💘</div>
-    <div id="mascotBubble">Hi! I'm Little Cupid 🏹 I'll be here to guide you. No need to panic! 😅</div>
   </div>
 
   <!-- ===================== COVER ===================== -->
@@ -707,13 +725,13 @@
       <span style="left:85%; top:15%; animation-delay:.6s;">💘</span>
       <span style="left:15%; top:75%; animation-delay:1.1s;">✨</span>
       <span style="left:90%; top:70%; animation-delay:.3s;">💍</span>
-      <span style="left:50%; top:8%; animation-delay:.9s;">rose</span>
+      <span style="left:50%; top:8%; animation-delay:.9s;">🌹</span>
     </div>
-    <div class="seal">SUITOR<br>♥</div>
-    <div class="eyebrow">🤫 Top Secret · For Family Eyes Only 🤫</div>
-    <h1>Marriage Applicant <em>Dossier</em> 💌</h1>
-    <p class="sub">A candid and slightly playful profile builder for a gentleman looking to propose 🎩💍 — his stats, his snacks, his sports, his soft-romantic side, and whether he actually remembers milestones or just guesses on the fly! 😏</p>
-    <button class="begin-btn" onclick="beginForm()">Begin Profile 🚀</button>
+    <div class="seal">😎<br>♥</div>
+    <div class="eyebrow">🤫 Top Secret · Family Eyes Only 🤫</div>
+    <h1>The Suitor's <em>Dossier</em> 💌</h1>
+    <p class="sub">A candid, slightly cheeky profile for a man throwing his hat in the ring for marriage 🎩💍 — his stats, his snacks, his sports, his squishy romantic side, and whether he really remembers birthdays or just says he does. 😏</p>
+    <button class="begin-btn" onclick="beginForm()">Let's Do This 🚀</button>
   </section>
 
   <!-- ===================== FORM ===================== -->
@@ -722,7 +740,7 @@
     <div class="toc" id="toc"></div>
 
     <div class="progress-rail">
-      <span class="rail-title">💘 The Dossier</span>
+      <span class="rail-title">💘 Dossier</span>
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       <span class="progress-count" id="progressCount">Chapter 1 / 8</span>
     </div>
@@ -732,14 +750,14 @@
 
         <!-- CHAPTER 1: PERSONAL -->
         <div class="chapter active" data-chapter="0">
-          <div class="chapter-index">Chapter One</div>
-          <h2>Who Is He? 🕵️‍♂️</h2>
-          <p class="chapter-note">The core vitals — Name, timeline, and physical location mapping. 🪪</p>
+          <div class="chapter-index">Chapter I</div>
+          <h2>Who He Is 🕵️‍♂️</h2>
+          <p class="chapter-note">The basics — name, rank, serial number. Okay, not serial number. But close. 🪪</p>
 
           <div class="row">
             <div class="field">
               <label>Full Name</label>
-              <input type="text" name="fullName" placeholder="e.g., Ahmed Karim Ben Salah" required>
+              <input type="text" name="fullName" placeholder="e.g. Ahmed Karim Ben Salah" required>
             </div>
             <div class="field">
               <label>Date of Birth</label>
@@ -749,22 +767,22 @@
           <div class="row3">
             <div class="field">
               <label>Nationality</label>
-              <input type="text" name="nationality" placeholder="e.g., Tunisian">
+              <input type="text" name="nationality" placeholder="e.g. Tunisian">
             </div>
             <div class="field">
               <label>City of Residence</label>
-              <input type="text" name="city" placeholder="e.g., Tunis">
+              <input type="text" name="city" placeholder="e.g. Tunis">
             </div>
             <div class="field">
-              <label>Religion <span class="opt">(Optional)</span></label>
-              <input type="text" name="religion" placeholder="e.g., Muslim">
+              <label>Religion <span class="opt">(optional)</span></label>
+              <input type="text" name="religion" placeholder="e.g. Muslim">
             </div>
           </div>
           <div class="row">
             <div class="field">
-              <label>Marital Status</label>
+              <label>Marital History</label>
               <select name="maritalHistory">
-                <option>Single</option>
+                <option>Never married</option>
                 <option>Divorced</option>
                 <option>Widowed</option>
               </select>
@@ -783,57 +801,57 @@
               <input type="tel" name="phone" placeholder="+216 ...">
             </div>
             <div class="field">
-              <label>Email Address</label>
+              <label>Email</label>
               <input type="email" name="email" placeholder="you@example.com">
             </div>
           </div>
           <div class="field">
             <label>Education Level</label>
             <select name="education">
-              <option>High School</option>
-              <option>Bachelor's Degree / Licence</option>
-              <option>Master's Degree</option>
-              <option>Ph.D.</option>
-              <option>Vocational / Technical Training</option>
-              <option>Self-taught / Other</option>
+              <option>High school</option>
+              <option>Bachelor's degree</option>
+              <option>Master's degree</option>
+              <option>Doctorate</option>
+              <option>Vocational / trade training</option>
+              <option>Self-taught / other</option>
             </select>
           </div>
         </div>
 
         <!-- CHAPTER 2: BODY -->
         <div class="chapter" data-chapter="1">
-          <div class="chapter-index">Chapter Two</div>
-          <h2>Physical Build 💪</h2>
-          <p class="chapter-note">Real specifications only. No gym-mirror camera angles or filters allowed. 📏✨</p>
+          <div class="chapter-index">Chapter II</div>
+          <h2>His Build 💪</h2>
+          <p class="chapter-note">Just the specs, no filters, no gym-mirror flexing. 📏✨</p>
 
           <div class="row3">
             <div class="field">
               <label>Height (cm)</label>
-              <input type="number" name="height" placeholder="e.g., 178">
+              <input type="number" name="height" placeholder="e.g. 178">
             </div>
             <div class="field">
               <label>Weight (kg)</label>
-              <input type="number" name="weight" placeholder="e.g., 75">
+              <input type="number" name="weight" placeholder="e.g. 75">
             </div>
             <div class="field">
               <label>Skin Tone</label>
               <select name="skinTone">
                 <option>Fair</option>
-                <option>Light Tan</option>
-                <option>Olive / Medium</option>
+                <option>Light olive</option>
+                <option>Olive</option>
+                <option>Tan / brown</option>
                 <option>Dark</option>
-                <option>Deep</option>
               </select>
             </div>
           </div>
           <div class="row3">
             <div class="field">
               <label>Hair Color</label>
-              <input type="text" name="hairColor" placeholder="e.g., Black">
+              <input type="text" name="hairColor" placeholder="e.g. Black">
             </div>
             <div class="field">
               <label>Eye Color</label>
-              <input type="text" name="eyeColor" placeholder="e.g., Brown">
+              <input type="text" name="eyeColor" placeholder="e.g. Brown">
             </div>
             <div class="field">
               <label>Build</label>
@@ -842,301 +860,293 @@
                 <option>Athletic</option>
                 <option>Average</option>
                 <option>Muscular</option>
-                <option>Stocky</option>
+                <option>Heavyset</option>
               </select>
             </div>
           </div>
           <div class="field">
             <label>Facial Hair</label>
             <div class="chips" data-name="facialHair">
-              <label class="chip"><input type="checkbox" value="Clean Shaven">Clean Shaven</label>
+              <label class="chip"><input type="checkbox" value="Clean shaven">Clean shaven</label>
               <label class="chip"><input type="checkbox" value="Mustache">Mustache</label>
-              <label class="chip"><input type="checkbox" value="Stubble">Stubble</label>
-              <label class="chip"><input type="checkbox" value="Full Beard">Full Beard</label>
+              <label class="chip"><input type="checkbox" value="Short beard">Short beard</label>
+              <label class="chip"><input type="checkbox" value="Full beard">Full beard</label>
             </div>
           </div>
           <div class="field">
-            <label>Any healthcare conditions or notes future spouse should know? <span class="opt">(Optional, kept confidential)</span></label>
-            <textarea name="health" placeholder="e.g., Wears glasses, minor asthma, none..."></textarea>
+            <label>Any visible health conditions or things a future spouse should know?<span class="opt"> (optional, kept confidential)</span></label>
+            <textarea name="health" placeholder="e.g. wears glasses, mild asthma, none..."></textarea>
           </div>
           <div class="field">
-            <label>Grooming Habits</label>
+            <label>Grooming habit</label>
             <div class="scale" data-name="grooming">
-              <input type="radio" name="grooming" id="g1" value="Low key / Minimalist"><label for="g1">Low key</label>
-              <input type="radio" name="grooming" id="g2" value="Average / Maintained"><label for="g2">Moderate</label>
-              <input type="radio" name="grooming" id="g3" value="Polished / Intentional"><label for="g3">High Effort</label>
-              <input type="radio" name="grooming" id="g4" value="Exceptionally sharp"><label for="g4">Impeccable</label>
+              <input type="radio" name="grooming" id="g1" value="Low-maintenance"><label for="g1">Low-key</label>
+              <input type="radio" name="grooming" id="g2" value="Casual care"><label for="g2">Casual</label>
+              <input type="radio" name="grooming" id="g3" value="Well-groomed"><label for="g3">Well-groomed</label>
+              <input type="radio" name="grooming" id="g4" value="Very particular"><label for="g4">Particular</label>
             </div>
           </div>
         </div>
 
         <!-- CHAPTER 3: JOB & FUTURE -->
         <div class="chapter" data-chapter="2">
-          <div class="chapter-index">Chapter Three</div>
-          <h2>Job & Ambition 💼🚀</h2>
-          <p class="chapter-note">What handles the bills, plus other macro blueprints in life. 💸🌙</p>
+          <div class="chapter-index">Chapter III</div>
+          <h2>Work & Ambition 💼🚀</h2>
+          <p class="chapter-note">What pays the bills, and the big dreams that don't. 💸🌙</p>
 
           <div class="row">
             <div class="field">
               <label>Job Title</label>
-              <input type="text" name="jobTitle" placeholder="e.g., Software Engineer">
+              <input type="text" name="jobTitle" placeholder="e.g. Civil Engineer">
             </div>
             <div class="field">
               <label>Employer / Field</label>
-              <input type="text" name="employer" placeholder="e.g., Tech Startup, Free-lancing">
+              <input type="text" name="employer" placeholder="e.g. Self-employed, construction">
             </div>
           </div>
-          <div class="row3">
+          <div class="row">
             <div class="field">
-              <label>Monthly Income Class <span class="opt">(Optional)</span></label>
+              <label>Monthly income bracket <span class="opt">(optional)</span></label>
               <select name="income">
                 <option>Prefer not to say</option>
-                <option>Stable & Modest</option>
-                <option>Comfortable & Stable</option>
-                <option>Highly lucrative</option>
+                <option>Modest, steady</option>
+                <option>Comfortable</option>
+                <option>Well above average</option>
               </select>
             </div>
             <div class="field">
-              <label>Home Ownership Status</label>
+              <label>Owns a home?</label>
               <select name="ownsHome">
                 <option>No</option>
                 <option>Renting</option>
-                <option>Yes, fully owned</option>
-                <option>Yes, under mortgage</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Vehicle Ownership Status</label>
-              <select name="ownsCar">
-                <option>No</option>
-                <option>Yes</option>
-                <option>Coming soon, Inshallah</option>
+                <option>Yes, fully</option>
+                <option>Yes, with mortgage</option>
               </select>
             </div>
           </div>
           <div class="field">
-            <label>5-Year Professional Trajectory</label>
-            <textarea name="careerPlan" placeholder="Where do you see your corporate or industrial output going?"></textarea>
+            <label>5-year career plan</label>
+            <textarea name="careerPlan" placeholder="Where do you see your work going?"></textarea>
           </div>
           <div class="field">
-            <label>Life Architecture <span class="opt">(The Macro Dreams)</span></label>
-            <textarea name="dreams" placeholder="e.g., Building a coastal farmhouse, launching a venture, writing a book..."></textarea>
+            <label>Life dreams <span class="opt">(the big ones)</span></label>
+            <textarea name="dreams" placeholder="e.g. build a family home by the sea, start a business, travel to Japan, write a book..."></textarea>
           </div>
         </div>
 
         <!-- CHAPTER 4: SPORT -->
         <div class="chapter" data-chapter="3">
-          <div class="chapter-index">Chapter Four</div>
-          <h2>Sports & Physical Discipline 🏋️‍♂️⚽</h2>
-          <p class="chapter-note">How active he actually is compared to what he boasts at family gatherings! 😅🏃‍♂️</p>
+          <div class="chapter-index">Chapter IV</div>
+          <h2>Sport & Body Discipline 🏋️‍♂️⚽</h2>
+          <p class="chapter-note">How active he actually is, versus what he tells people at parties. 😅🏃‍♂️</p>
 
           <div class="field">
-            <label>Sports Regularly Practiced</label>
+            <label>Sports he practices</label>
             <div class="chips" data-name="sports">
-              <label class="chip"><input type="checkbox" value="Football / Soccer">Football / Soccer</label>
-              <label class="chip"><input type="checkbox" value="Gym / Weightlifting">Gym / Weightlifting</label>
-              <label class="chip"><input type="checkbox" value="Running / Athletics">Running / Athletics</label>
+              <label class="chip"><input type="checkbox" value="Football">Football</label>
+              <label class="chip"><input type="checkbox" value="Gym / weightlifting">Gym / weightlifting</label>
+              <label class="chip"><input type="checkbox" value="Running">Running</label>
               <label class="chip"><input type="checkbox" value="Swimming">Swimming</label>
-              <label class="chip"><input type="checkbox" value="Martial Arts">Martial Arts</label>
+              <label class="chip"><input type="checkbox" value="Martial arts">Martial arts</label>
               <label class="chip"><input type="checkbox" value="Cycling">Cycling</label>
-              <label class="chip"><input type="checkbox" value="Tennis / Padel">Tennis / Padel</label>
-              <label class="chip"><input type="checkbox" value="Hiking / Camping">Hiking / Camping</label>
-              <label class="chip"><input type="checkbox" value="Not regularly active">Not active right now</label>
+              <label class="chip"><input type="checkbox" value="Tennis / padel">Tennis / padel</label>
+              <label class="chip"><input type="checkbox" value="Hiking">Hiking</label>
+              <label class="chip"><input type="checkbox" value="None regularly">None regularly</label>
             </div>
           </div>
           <div class="field">
-            <label>Workout Frequency</label>
+            <label>How often do you exercise?</label>
             <div class="scale" data-name="exerciseFreq">
-              <input type="radio" name="exerciseFreq" id="e1" value="Rarely / Casual"><label for="e1">Rarely</label>
-              <input type="radio" name="exerciseFreq" id="e2" value="1-2 times a week"><label for="e2">1–2x / wk</label>
-              <input type="radio" name="exerciseFreq" id="e3" value="3-4 times a week"><label for="e3">3–4x / wk</label>
-              <input type="radio" name="exerciseFreq" id="e4" value="Almost daily"><label for="e4">Daily</label>
+              <input type="radio" name="exerciseFreq" id="e1" value="Rarely"><label for="e1">Rarely</label>
+              <input type="radio" name="exerciseFreq" id="e2" value="1-2x/week"><label for="e2">1–2x/wk</label>
+              <input type="radio" name="exerciseFreq" id="e3" value="3-4x/week"><label for="e3">3–4x/wk</label>
+              <input type="radio" name="exerciseFreq" id="e4" value="Daily"><label for="e4">Daily</label>
             </div>
           </div>
           <div class="field">
-            <label>Favorite Athletic Team to Watch <span class="opt">(Optional)</span></label>
-            <input type="text" name="favTeam" placeholder="e.g., Real Madrid, EST">
+            <label>Favorite sports team to watch <span class="opt">(optional)</span></label>
+            <input type="text" name="favTeam" placeholder="e.g. Espérance de Tunis">
           </div>
         </div>
 
         <!-- CHAPTER 5: LIKES -->
         <div class="chapter" data-chapter="4">
-          <div class="chapter-index">Chapter Five</div>
-          <h2>Interests & Preferences 🎨🎧</h2>
-          <p class="chapter-note">Hobbies, flavor profiles, and how a completely blank Friday evening unfolds. 🍕🎮</p>
+          <div class="chapter-index">Chapter V</div>
+          <h2>What He Likes 🎨🎧</h2>
+          <p class="chapter-note">Snacks, hobbies, and how he really spends a lazy Friday. 🍕🎮</p>
 
           <div class="field">
-            <label>Hobbies & Passions</label>
+            <label>Hobbies & interests</label>
             <div class="chips" data-name="hobbies">
               <label class="chip"><input type="checkbox" value="Reading">Reading</label>
               <label class="chip"><input type="checkbox" value="Cooking">Cooking</label>
-              <label class="chip"><input type="checkbox" value="Music">Music Production / Listening</label>
+              <label class="chip"><input type="checkbox" value="Music">Music</label>
               <label class="chip"><input type="checkbox" value="Gaming">Gaming</label>
               <label class="chip"><input type="checkbox" value="Photography">Photography</label>
-              <label class="chip"><input type="checkbox" value="Traveling">Traveling</label>
-              <label class="chip"><input type="checkbox" value="Fine Arts / Design">Fine Arts / Design</label>
-              <label class="chip"><input type="checkbox" value="Automotive">Automotive Culture</label>
-              <label class="chip"><input type="checkbox" value="Gardening">Gardening / Plants</label>
-              <label class="chip"><input type="checkbox" value="Creative Writing">Creative Writing</label>
+              <label class="chip"><input type="checkbox" value="Travel">Travel</label>
+              <label class="chip"><input type="checkbox" value="Art & painting">Art & painting</label>
+              <label class="chip"><input type="checkbox" value="Cars">Cars</label>
+              <label class="chip"><input type="checkbox" value="Gardening">Gardening</label>
+              <label class="chip"><input type="checkbox" value="Writing">Writing</label>
               <label class="chip"><input type="checkbox" value="Volunteering">Volunteering</label>
             </div>
           </div>
           <div class="row">
             <div class="field">
-              <label>Preferred Cuisine</label>
-              <input type="text" name="cuisine" placeholder="e.g., Tunisian, Italian, Japanese...">
+              <label>Favorite cuisine</label>
+              <input type="text" name="cuisine" placeholder="e.g. Tunisian, Italian, Japanese...">
             </div>
             <div class="field">
-              <label>Acoustic Genre Preferences</label>
-              <input type="text" name="music" placeholder="e.g., Malouf, Jazz, Classical, Pop...">
+              <label>Favorite music genre</label>
+              <input type="text" name="music" placeholder="e.g. Malouf, jazz, pop...">
             </div>
           </div>
           <div class="field">
-            <label>The Ideal Friday Evening Blueprint</label>
-            <textarea name="idealEvening" placeholder="Describe how you actually decompress when no one is organizing your schedule."></textarea>
+            <label>Ideal Friday evening</label>
+            <textarea name="idealEvening" placeholder="Describe how you'd actually want to spend it"></textarea>
           </div>
           <div class="field">
-            <label>Pet Alignment</label>
+            <label>Pets</label>
             <select name="pets">
-              <option>Pro-animals, currently cohabiting with pets</option>
-              <option>Likes animals, but no domestic pets currently</option>
-              <option>Neutral / Indoors-indifferent</option>
-              <option>Prefers a pet-free household layout</option>
+              <option>Loves animals, has pets</option>
+              <option>Loves animals, no pets currently</option>
+              <option>Neutral about pets</option>
+              <option>Not a pet person</option>
             </select>
           </div>
         </div>
 
         <!-- CHAPTER 6: CHARACTER -->
         <div class="chapter" data-chapter="5">
-          <div class="chapter-index">Chapter Six</div>
-          <h2>Character & Demeanor 🎭</h2>
-          <p class="chapter-note">Who he is when there are zero filters active and nobody to impress. 👀</p>
+          <div class="chapter-index">Chapter VI</div>
+          <h2>Character 🎭</h2>
+          <p class="chapter-note">Who he is when nobody's watching and there's no one left to impress. 👀</p>
 
           <div class="field">
-            <label>Core Traits (Select Most Accurate)</label>
+            <label>Personality traits that describe him best</label>
             <div class="chips" data-name="traits">
-              <label class="chip"><input type="checkbox" value="Calm">Calm / Measured</label>
+              <label class="chip"><input type="checkbox" value="Calm">Calm</label>
               <label class="chip"><input type="checkbox" value="Ambitious">Ambitious</label>
-              <label class="chip"><input type="checkbox" value="Playful">Playful / Witty</label>
-              <label class="chip"><input type="checkbox" value="Serious">Serious / Focused</label>
+              <label class="chip"><input type="checkbox" value="Funny">Funny</label>
+              <label class="chip"><input type="checkbox" value="Serious">Serious</label>
               <label class="chip"><input type="checkbox" value="Patient">Patient</label>
               <label class="chip"><input type="checkbox" value="Stubborn">Stubborn</label>
               <label class="chip"><input type="checkbox" value="Generous">Generous</label>
               <label class="chip"><input type="checkbox" value="Introverted">Introverted</label>
               <label class="chip"><input type="checkbox" value="Extroverted">Extroverted</label>
-              <label class="chip"><input type="checkbox" value="Highly Organized">Highly Organized</label>
+              <label class="chip"><input type="checkbox" value="Organized">Organized</label>
               <label class="chip"><input type="checkbox" value="Spontaneous">Spontaneous</label>
               <label class="chip"><input type="checkbox" value="Protective">Protective</label>
             </div>
           </div>
           <div class="field">
-            <label>Conflict Resolution Default</label>
+            <label>How do you handle disagreements?</label>
             <select name="conflictStyle">
-              <option>Talk it out immediately with direct language</option>
-              <option>Decompress in isolation first, then regroup</option>
-              <option>Defuse and bypass conflict where feasible</option>
-              <option>High immediate energy, but burning out fast</option>
+              <option>Talk it through immediately</option>
+              <option>Need time alone to cool down first</option>
+              <option>Avoid conflict when possible</option>
+              <option>Get intense but resolve quickly</option>
             </select>
           </div>
           <div class="row">
             <div class="field">
-              <label>Primary Internal Strength</label>
-              <input type="text" name="strength" placeholder="e.g., Unwavering loyalty, stoic patience...">
+              <label>Biggest strength</label>
+              <input type="text" name="strength" placeholder="e.g. loyalty, patience...">
             </div>
             <div class="field">
-              <label>Work-in-Progress Attribute</label>
-              <input type="text" name="weakness" placeholder="e.g., Impatience, overthinking everything...">
+              <label>Something you're working on</label>
+              <input type="text" name="weakness" placeholder="e.g. temper, punctuality...">
             </div>
           </div>
           <div class="field">
-            <label>What do close friends honestly say about you?</label>
-            <textarea name="friendsSay" placeholder="Keep it authentic — even the humorous structural complaints."></textarea>
+            <label>What do close friends say about you?</label>
+            <textarea name="friendsSay" placeholder="Be honest — even the unflattering bits"></textarea>
           </div>
         </div>
 
         <!-- CHAPTER 7: THE ROMANCE TEST -->
         <div class="chapter" data-chapter="6">
-          <div class="chapter-index">Chapter Seven</div>
+          <div class="chapter-index">Chapter VII</div>
           <h2>Is He Actually Romantic? 💘🔍</h2>
-          <p class="chapter-note">A swift, unyielding evaluation. Answer according to factual defaults — Cupid's telemetry is active! 🏹👁️</p>
+          <p class="chapter-note">A tiny, brutally honest quiz. Answer like you actually behave — Cupid is watching and Cupid knows. 🏹👁️</p>
 
           <div class="quiz-q">
-            <div class="qtext">Q1. It's your spouse's birthday. What is your roadmap?</div>
-            <label class="quiz-opt"><input type="radio" name="q1" value="3">I coordinate a customized event weeks ahead, even if it's minimal and private.</label>
-            <label class="quiz-opt"><input type="radio" name="q1" value="2">Secure a high-value item and arrange a reliable dinner — standard premium execution.</label>
-            <label class="quiz-opt"><input type="radio" name="q1" value="1">Deliver verbal congrats and secure a present during the afternoon run.</label>
-            <label class="quiz-opt"><input type="radio" name="q1" value="0">To be transparent, calendar notifications sometimes slip right past me.</label>
+            <div class="qtext">Q1. It's your partner's birthday. What do you do?</div>
+            <label class="quiz-opt"><input type="radio" name="q1" value="3">Plan something meaningful weeks in advance, even a small surprise.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="2">Get a nice gift and take her out — solid, no big surprise.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="1">Say happy birthday and figure out a gift that day.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="0">Honestly, I sometimes forget dates.</label>
           </div>
           <div class="quiz-q">
-            <div class="qtext">Q2. How do you articulate core affection?</div>
-            <label class="quiz-opt"><input type="radio" name="q2" value="3">Verbal affirmations, customized micro-gestures, and consistent attentiveness.</label>
-            <label class="quiz-opt"><input type="radio" name="q2" value="2">Concrete acts of service and infrastructure support — fixing things, being a rock.</label>
-            <label class="quiz-opt"><input type="radio" name="q2" value="1">Through mechanical provision and execution; I am not a spoken-word poet.</label>
-            <label class="quiz-opt"><input type="radio" name="q2" value="0">I assume the macro commitment stands on its own without ongoing maintenance.</label>
+            <div class="qtext">Q2. How do you usually express affection?</div>
+            <label class="quiz-opt"><input type="radio" name="q2" value="3">Words, small gestures, and physical affection — all of it, often.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="2">Mostly through actions — helping out, showing up, being reliable.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="1">I show it, but I'm not big on saying it out loud.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="0">I assume she knows without me needing to show it.</label>
           </div>
           <div class="quiz-q">
-            <div class="qtext">Q3. She returns from an exhausting, highly stressful day. Your move?</div>
-            <label class="quiz-opt"><input type="radio" name="q3" value="3">Prompt her to vent, actively listen without interrupting, and ask how to lower her load.</label>
-            <label class="quiz-opt"><input type="radio" name="q3" value="2">Pivot her attention to something lighthearted, a pleasant snack, or a distraction.</label>
-            <label class="quiz-opt"><input type="radio" name="q3" value="1">Formulate logical solutions immediately to fix the root cause of her problem.</label>
-            <label class="quiz-opt"><input type="radio" name="q3" value="0">Clear the room to afford her isolation until her mood normalizes.</label>
+            <div class="qtext">Q3. She's had a bad day. Your first move?</div>
+            <label class="quiz-opt"><input type="radio" name="q3" value="3">Ask what happened, listen fully, then ask how I can help.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="2">Try to cheer her up or distract her with something fun.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="1">Offer quick advice to fix the problem.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="0">Give her space and let her come to me.</label>
           </div>
           <div class="quiz-q">
-            <div class="qtext">Q4. Do you log unstructured data points she mentions casually months prior?</div>
-            <label class="quiz-opt"><input type="radio" name="q4" value="3">Yes, and I retrieve them unexpectedly to establish that her inputs matter.</label>
-            <label class="quiz-opt"><input type="radio" name="q4" value="2">Usually, if it was tied to a core personal preference.</label>
-            <label class="quiz-opt"><input type="radio" name="q4" value="1">Intermittently, depending on my general systemic bandwidth at that moment.</label>
-            <label class="quiz-opt"><input type="radio" name="q4" value="0">Unstructured inputs are typically cleared from memory immediately.</label>
+            <div class="qtext">Q4. Do you remember small details she mentions in passing?</div>
+            <label class="quiz-opt"><input type="radio" name="q4" value="3">Yes, and I often bring them up later to show I remembered.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="2">Usually, if it matters.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="1">Sometimes, if I'm paying close attention.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="0">Not really, details slip my mind.</label>
           </div>
           <div class="quiz-q">
-            <div class="qtext">Q5. Mapping out multi-year personal futures together is engaging because...</div>
-            <label class="quiz-opt"><input type="radio" name="q5" value="3">I genuinely enjoy co-authoring detailed shared life layouts.</label>
-            <label class="quiz-opt"><input type="radio" name="q5" value="2">It is the responsible, programmatic milestone sequence for adulthood.</label>
-            <label class="quiz-opt"><input type="radio" name="q5" value="1">I haven't committed high analytical resources to long-term blueprints yet.</label>
-            <label class="quiz-opt"><input type="radio" name="q5" value="0">I process short-term real-time data rather than predictive roadmaps.</label>
+            <div class="qtext">Q5. Planning the future together excites you because...</div>
+            <label class="quiz-opt"><input type="radio" name="q5" value="3">I genuinely love imagining a life built together, day to day.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="2">It feels like the right, responsible next step.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="1">I haven't thought about it in much detail yet.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="0">I focus more on today than long-term plans.</label>
           </div>
         </div>
 
         <!-- CHAPTER 8: WHAT HE'S LOOKING FOR -->
         <div class="chapter" data-chapter="7">
-          <div class="chapter-index">Chapter Eight</div>
+          <div class="chapter-index">Chapter VIII</div>
           <h2>What He's Looking For 🔎💍</h2>
-          <p class="chapter-note">The terminal page! The profile parameters of the partner he hopes to journey alongside. 🤝💫</p>
+          <p class="chapter-note">Last page! What kind of partner-in-crime he's hoping to find. 🤝💫</p>
 
           <div class="field">
-            <label>Core Traits Sought in a Spouse</label>
+            <label>Qualities you're looking for in a spouse</label>
             <div class="chips" data-name="lookingFor">
-              <label class="chip"><input type="checkbox" value="Kindness / Empathy">Kindness / Empathy</label>
-              <label class="chip"><input type="checkbox" value="Ambition">Ambition / Drive</label>
-              <label class="chip"><input type="checkbox" value="Wit / Humour">Wit / Humour</label>
-              <label class="chip"><input type="checkbox" value="Family-Oriented">Family-Oriented</label>
+              <label class="chip"><input type="checkbox" value="Kindness">Kindness</label>
+              <label class="chip"><input type="checkbox" value="Ambition">Ambition</label>
+              <label class="chip"><input type="checkbox" value="Sense of humor">Sense of humor</label>
+              <label class="chip"><input type="checkbox" value="Family-oriented">Family-oriented</label>
               <label class="chip"><input type="checkbox" value="Independence">Independence</label>
-              <label class="chip"><input type="checkbox" value="Aligned Core Values">Aligned Core Values</label>
-              <label class="chip"><input type="checkbox" value="Intellect">Intellect</label>
-              <label class="chip"><input type="checkbox" value="Unwavering Support">Mutual Encouragement</label>
+              <label class="chip"><input type="checkbox" value="Shared faith/values">Shared faith / values</label>
+              <label class="chip"><input type="checkbox" value="Intelligence">Intelligence</label>
+              <label class="chip"><input type="checkbox" value="Supportive">Supportive</label>
             </div>
           </div>
           <div class="field">
-            <label>Domestic Family Horizon</label>
+            <label>View on family life</label>
             <select name="familyView">
-              <option>Intent on expanding family in the near-term</option>
-              <option>Intent on expanding family down the road</option>
-              <option>Open-ended / Undecided structural baseline</option>
-              <option>Prefers a child-free family layout</option>
+              <option>Wants children soon</option>
+              <option>Wants children eventually</option>
+              <option>Open, undecided</option>
+              <option>Prefers not to have children</option>
             </select>
           </div>
           <div class="field">
-            <label>In a concise paragraph, synthesize your vision for the marriage</label>
-            <textarea name="marriageVision" placeholder="Speak candidly — this text box carries high weight for family evaluation."></textarea>
+            <label>In one paragraph, describe the kind of marriage you want to build</label>
+            <textarea name="marriageVision" placeholder="Speak plainly, this is the part people actually read"></textarea>
           </div>
           <div class="field">
-            <label>Any supplementary technical or personal data worth logging?</label>
+            <label>Anything else worth knowing about you?</label>
             <textarea name="extra"></textarea>
           </div>
         </div>
 
         <div class="nav-buttons">
-          <button type="button" class="btn" id="prevBtn" onclick="changeChapter(-1)">← Go Back</button>
+          <button type="button" class="btn" id="prevBtn" onclick="changeChapter(-1)">← Back it up</button>
           <button type="button" class="btn primary" id="nextBtn" onclick="changeChapter(1)">Continue →</button>
         </div>
 
@@ -1148,30 +1158,30 @@
   <section class="certificate" id="certificate">
     <div class="cert-card">
       <div class="cert-inner">
-        <div class="cert-eyebrow">🎉 DATASET RECORDED 🎉</div>
-        <h2>Dossier Sealed & Confirmed! 💌</h2>
+        <div class="cert-eyebrow">🎉 Mission Accomplished 🎉</div>
+        <h2>Profile Sealed! 💌</h2>
         <div class="cert-name" id="certName">—</div>
         <div class="cert-grid" id="certGrid"></div>
         <div class="romantic-meter">
-          <div class="rm-label">💘 Romance Metric Telemetry 💘</div>
+          <div class="rm-label">💘 Romantic-O-Meter 💘</div>
           <div class="rm-track"><div class="rm-fill" id="rmFill" style="width:0%"></div></div>
           <div class="rm-verdict" id="rmVerdict">—</div>
         </div>
         <div class="field" style="margin-top:6px;">
-          <label>Forward Dossier <span class="opt">(Family or Matchmaker Email Address)</span></label>
+          <label>Send this dossier to <span class="opt">(matchmaker or family email)</span></label>
           <input type="email" id="sendToEmail" placeholder="recipient@example.com">
-          <div class="send-note">We will compile a structural PDF dossier and invoke your device's native system share sheet 📎. If native sharing fails, the document downloads locally and your mail client will open for manual attachment.</div>
+          <div class="send-note">We'll build a matching-design PDF and try to hand it straight to your Mail app via the share sheet 📎. If your browser/device doesn't support that, the PDF downloads automatically and your email app opens so you can attach it — a plain web page can't force-attach a file to an email on its own.</div>
         </div>
         <div class="cert-actions">
-          <button class="btn" onclick="location.reload()">🔄 Reset Engine</button>
-          <button class="btn" onclick="printDossier()">🖨️ Print Masterpiece</button>
-          <button class="btn primary" onclick="sendDossier(event)">📤 Dispatch Dossier</button>
+          <button class="btn" onclick="location.reload()">🔄 Do It Again</button>
+          <button class="btn" onclick="printDossier()">🖨️ Print This Masterpiece</button>
+          <button class="btn primary" onclick="sendDossier(event)">📤 Send It Off</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Full printable dossier rendering node -->
+  <!-- Full printable dossier, built at print/send time, hidden on screen -->
   <div id="printArea"></div>
 
 <script>
@@ -1184,26 +1194,26 @@
     buildToc();
     updateProgress();
     window.scrollTo(0,0);
-    document.getElementById('mascot').style.display = 'flex';
+    document.getElementById('mascot').classList.add('show');
     mascotSay(0);
   }
 
   const MASCOT_LINES = [
-    "Perfect, let's establish the primary informational baseline first. 📋",
-    "Ah, physical metrics! Keep it strictly factual, I possess a lie detector protocol! (Or do I? 🕵️)",
-    "Professional architecture and assets. No stress, I only evaluate analytics... mostly. 💼😌",
-    "Athletic tracking! Does transporting commercial groceries count as intensive cardio? 🛍️😂",
-    "Log your personal hobbies. I pledge not to fork your interests into my own database... probably. 🎨",
-    "Demeanor and psychological traits. This is where the unfiltered reality populates. ☕",
-    "🚨 ROMANCE TELEMETRY WARNING 🚨 Keep answers authentic, I can detect synthesized inputs! 👃💘",
-    "Terminal stage! What does the ideal matrimonial co-pilot profile look like to you? 🔍💫",
+    "Alright, let's get the boring-but-important stuff out of the way. 📋",
+    "Ooh, physical stats. Be honest, I have a lie detector. (I don't. Or do I? 🕵️)",
+    "Money talk! Don't worry, I don't judge. Much. 💼😌",
+    "Sporty time! Does carrying grocery bags count as cardio? 🛍️😂",
+    "Tell me your hobbies. I promise not to steal them. Probably. 🎨",
+    "Character check! This is where the real tea gets spilled. ☕",
+    "🚨 ROMANCE ALERT 🚨 Answer truthfully, I can smell fibs. 👃💘",
+    "Almost there! What's the dream partner situation looking like? 🔍💫",
   ];
 
   function mascotSay(i){
     const bubble = document.getElementById('mascotBubble');
-    const line = MASCOT_LINES[i] || "Dataset processed successfully! 💪";
+    const line = MASCOT_LINES[i] || "You've got this! 💪";
     bubble.style.animation = 'none';
-    void bubble.offsetWidth; 
+    void bubble.offsetWidth; // restart animation
     bubble.style.animation = null;
     bubble.textContent = line;
     const face = document.getElementById('mascotFace');
@@ -1235,7 +1245,7 @@
     document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('progressCount').textContent = `Chapter ${current+1} / ${chapters.length}`;
     document.getElementById('prevBtn').disabled = current===0;
-    document.getElementById('nextBtn').textContent = (current===chapters.length-1) ? 'Seal & Finalize File →' : 'Continue →';
+    document.getElementById('nextBtn').textContent = (current===chapters.length-1) ? 'Seal the Dossier →' : 'Continue →';
     refreshToc();
   }
 
@@ -1258,6 +1268,7 @@
     goTo(next);
   }
 
+  // chip toggle behavior
   const CHIP_REACTIONS = ['✨','💫','👍','🎯','🙌','😄'];
   document.querySelectorAll('.chip').forEach(chip=>{
     chip.addEventListener('click', (e)=>{
@@ -1271,6 +1282,7 @@
     });
   });
 
+  // little emoji that pops up and fades where you clicked
   function popHeart(x, y, emoji){
     const el = document.createElement('div');
     el.className = 'heart-pop';
@@ -1281,6 +1293,7 @@
     setTimeout(()=>el.remove(), 950);
   }
 
+  // a little burst of confetti emojis raining down from the top
   function confettiBurst(count){
     const emojis = ['🎉','💖','💘','✨','🎊','💍','😍'];
     count = count || 40;
@@ -1298,6 +1311,7 @@
     }
   }
 
+  // react to the quiz answers too, since that's the fun chapter
   document.querySelectorAll('.quiz-opt input[type=radio]').forEach(radio=>{
     radio.addEventListener('change', (e)=>{
       const rect = e.target.getBoundingClientRect();
@@ -1315,7 +1329,7 @@
     const form = document.getElementById('dossierForm');
     const fd = new FormData(form);
 
-    const fullName = fd.get('fullName') || 'Unnamed Applicant';
+    const fullName = fd.get('fullName') || 'Unnamed Candidate';
     const city = fd.get('city') || '—';
     const job = fd.get('jobTitle') || '—';
     const height = fd.get('height') || '—';
@@ -1328,12 +1342,12 @@
     const grid = document.getElementById('certGrid');
     grid.innerHTML = '';
     const rows = [
-      ['Location', city],
-      ['Profession', job],
-      ['Metrics / Build', `${height} cm, ${build}`],
-      ['Core Attributes', traits],
-      ['Interests', hobbies],
-      ['Athletics', sports],
+      ['Residence', city],
+      ['Occupation', job],
+      ['Height / Build', `${height} cm, ${build}`],
+      ['Key Traits', traits],
+      ['Hobbies', hobbies],
+      ['Sports', sports],
     ];
     rows.forEach(([label,val])=>{
       const d = document.createElement('div');
@@ -1341,6 +1355,7 @@
       grid.appendChild(d);
     });
 
+    // romantic score
     let score = 0, answered = 0;
     ['q1','q2','q3','q4','q5'].forEach(q=>{
       const val = fd.get(q);
@@ -1351,10 +1366,10 @@
     document.getElementById('rmFill').style.width = pct + '%';
 
     let verdict;
-    if(pct>=80) verdict = "💘 Unapologetic Romantic — Writes poetry, logs milestones, visibly cries at high-production weddings.";
-    else if(pct>=55) verdict = "🌹 Genuinely thoughtful and attentive in his own grounded, structurally stable way.";
-    else if(pct>=30) verdict = "🙂 Cares deeply, but high emotional poetry is not his natural native runtime language.";
-    else verdict = "🔧 Pragmatic Provider — Demonstrates affection via infrastructure, stability, and high operational reliability rather than seasonal flora.";
+    if(pct>=80) verdict = "💘 A true romantic — writes the poem, remembers the date, cries at weddings.";
+    else if(pct>=55) verdict = "🌹 Genuinely thoughtful, in his own steady, no-fuss way.";
+    else if(pct>=30) verdict = "🙂 Caring, but romance isn't exactly his first language.";
+    else verdict = "🔧 Practical to the core — love shows up as reliability, not roses.";
     document.getElementById('rmVerdict').textContent = `${pct}% — ${verdict}`;
     lastRomantic = { pct, verdict };
 
@@ -1363,60 +1378,61 @@
     window.scrollTo(0,0);
     confettiBurst(60);
     const finalLine = pct>=80
-      ? "Wow, full Romeo configuration detected! 😍💘 Dataset compiled cleanly!"
+      ? "WOW okay Romeo, settle down. 😍💘 Sealed and delivered!"
       : pct>=55
-      ? "Exceptional logging! The suitor registry file is officially sealed. 🎉"
+      ? "Solid work! The dossier is officially sealed. 🎉"
       : pct>=30
-      ? "Profile indexed! You might require minor practice on executing sudden surprises. 😉"
-      : "Data stored! I am assigning you supplementary homework protocols for emotional mechanics. 📚💌";
+      ? "Sealed! Might wanna practice a surprise or two though. 😉"
+      : "Sealed! Romance homework is assigned. 📚💌";
     document.getElementById('mascotBubble').textContent = finalLine;
   }
 
   let lastRomantic = { pct:0, verdict:'—' };
 
+  // Field label lookup, in dossier order, chapter by chapter
   const DOSSIER_SCHEMA = [
-    { title:'Chapter One — Core Identity 🕵️‍♂️', fields:[
+    { title:'Chapter I — Who He Is 🕵️‍♂️', fields:[
       ['fullName','Full Name'], ['dob','Date of Birth'], ['nationality','Nationality'],
-      ['city','City of Residence'], ['religion','Religious Alignment'], ['maritalHistory','Marital Baseline'],
-      ['children','Descendants / Children'], ['phone','Phone Telemetry'], ['email','Digital Mail Address'], ['education','Educational Tier'],
+      ['city','City of Residence'], ['religion','Religion'], ['maritalHistory','Marital History'],
+      ['children','Has Children'], ['phone','Phone Number'], ['email','Email'], ['education','Education Level'],
     ]},
-    { title:'Chapter Two — Physical Architecture 💪', fields:[
-      ['height','Height (cm)'], ['weight','Weight (kg)'], ['skinTone','Skin Profile'],
-      ['hairColor','Hair Profile'], ['eyeColor','Ocular Profile'], ['build','Physical Build'],
-      ['facialHair','Facial Hair Array', 'chip'], ['health','Medical Ecosystem Notes'], ['grooming','Grooming Routine Class'],
+    { title:'Chapter II — His Build 💪', fields:[
+      ['height','Height (cm)'], ['weight','Weight (kg)'], ['skinTone','Skin Tone'],
+      ['hairColor','Hair Color'], ['eyeColor','Eye Color'], ['build','Build'],
+      ['facialHair','Facial Hair', 'chip'], ['health','Health Notes'], ['grooming','Grooming Habit'],
     ]},
-    { title:'Chapter Three — Infrastructure & Ambition 💼🚀', fields:[
-      ['jobTitle','Job Designation'], ['employer','Enterprise / Field'], ['income','Economic Bracket'],
-      ['ownsHome','Property Status'], ['ownsCar','Vehicle Status'], ['careerPlan','5-Year Industrial Plan'], ['dreams','Macro Life Targets'],
+    { title:'Chapter III — Work & Ambition 💼🚀', fields:[
+      ['jobTitle','Job Title'], ['employer','Employer / Field'], ['income','Income Bracket'],
+      ['ownsHome','Owns a Home'], ['careerPlan','5-Year Career Plan'], ['dreams','Life Dreams'],
     ]},
-    { title:'Chapter Four — Athletic Discipline 🏋️‍♂️⚽', fields:[
-      ['sports','Sports Practiced','chip'], ['exerciseFreq','Activity Periodicity'], ['favTeam','Franchise Team Followed'],
+    { title:'Chapter IV — Sport & Discipline 🏋️‍♂️⚽', fields:[
+      ['sports','Sports Practiced','chip'], ['exerciseFreq','Exercise Frequency'], ['favTeam','Favorite Team'],
     ]},
-    { title:'Chapter Five — Preferences & Decompression 🎨🎧', fields:[
-      ['hobbies','Hobbies & Interests','chip'], ['cuisine','Gastronomy Profile'], ['music','Acoustic Preferences'],
-      ['idealEvening','Friday Night Blueprint'], ['pets','Pet Alignment Vector'],
+    { title:'Chapter V — What He Likes 🎨🎧', fields:[
+      ['hobbies','Hobbies & Interests','chip'], ['cuisine','Favorite Cuisine'], ['music','Favorite Music'],
+      ['idealEvening','Ideal Friday Evening'], ['pets','Pets'],
     ]},
-    { title:'Chapter Six — Psychological Demeanor 🎭', fields:[
-      ['traits','Personality Vector Map','chip'], ['conflictStyle','Conflict Resolution Strategy'],
-      ['strength','Primary Internal Core Asset'], ['weakness','Optimization Parameter'], ['friendsSay','Peer Review Commentary'],
+    { title:'Chapter VI — Character 🎭', fields:[
+      ['traits','Personality Traits','chip'], ['conflictStyle','Conflict Style'],
+      ['strength','Biggest Strength'], ['weakness','Working On'], ['friendsSay','What Friends Say'],
     ]},
-    { title:'Chapter Seven — Romantic Telemetry 💘🔍', fields:[
-      ['q1','Q1 — Birthday Management'], ['q2','Q2 — Affection Output'],
-      ['q3','Q3 — High-Stress Mitigation'], ['q4','Q4 — Unstructured Data Logging'],
-      ['q5','Q5 — Matrimonial Architecture Outlook'],
+    { title:'Chapter VII — Romantic Index 💘🔍', fields:[
+      ['q1','Q1 — Birthday response'], ['q2','Q2 — Expressing affection'],
+      ['q3','Q3 — Response to a bad day'], ['q4','Q4 — Remembers small details'],
+      ['q5','Q5 — Excitement for the future'],
     ]},
-    { title:'Chapter Eight — Target Requirements 🔎💍', fields:[
-      ['lookingFor','Spousal Attributes Sought','chip'], ['familyView','Domestic Horizon Plan'],
-      ['marriageVision','Matrimonial Architecture Thesis'], ['extra','Supplementary Disclosures'],
+    { title:'Chapter VIII — What He\'s Looking For 🔎💍', fields:[
+      ['lookingFor','Qualities Wanted','chip'], ['familyView','View on Family Life'],
+      ['marriageVision','Marriage Vision'], ['extra','Anything Else'],
     ]},
   ];
 
   const QUIZ_LABELS = {
-    q1:{3:'Coordinates custom surprise frameworks weeks out',2:'Secures high-value item and reliable culinary tracking',1:'Delivers verbal congrats and handles acquisition in real-time',0:'Calendar logs routinely bypass memory allocation'},
-    q2:{3:'Verbal affirmations, customized micro-gestures, continuous attention',2:'Concrete infrastructure support and high operational reliability',1:'Provisioning and runtime execution; avoids verbal poetry',0:'Assumes the macro structural layout requires zero maintenance output'},
-    q3:{3:'Prompts complete data venting, actively listens, reduces load factors',2:'Pivots focus to lighthearted dynamics or snack deployment',1:'Formulates immediate programmatic fixes for root causes',0:'Isolates system parameters until client mood auto-normalizes'},
-    q4:{3:'Logs unstructured inputs long-term and deploys unexpectedly for customer success',2:'Logs data reliably if tied to core personal infrastructure values',1:'Intermittent logging depending on general processing bandwidth',0:'Unstructured real-time data is cleared from memory caches instantly'},
-    q5:{3:'Enjoys co-authoring granular long-range blueprints side-by-side',2:'Understands it as the correct operational phase shift for adulthood milestones',1:'Has not dedicated high analytical resources to long-term blueprints yet',0:'Processes short-term immediate real-time variables exclusively'},
+    q1:{3:'Plans something meaningful weeks ahead',2:'Gets a nice gift, no big surprise',1:'Sorts a gift the same day',0:'Sometimes forgets dates'},
+    q2:{3:'Words, gestures and affection, often',2:'Mostly through actions',1:'Shows it, rarely says it',0:'Assumes she already knows'},
+    q3:{3:'Listens fully, then asks how to help',2:'Tries to cheer her up',1:'Offers quick advice',0:'Gives her space'},
+    q4:{3:'Remembers and brings details up later',2:'Usually, if it matters',1:'Sometimes, with attention',0:'Details slip his mind'},
+    q5:{3:'Loves imagining daily life together',2:'Feels like the responsible next step',1:'Hasn\'t thought it through yet',0:'Focuses on today over the future'},
   };
 
   function collectDossierData(){
@@ -1426,7 +1442,7 @@
       const fields = chap.fields.map(([name,label,type])=>{
         let val;
         if(type==='chip') val = getChipValues(name).join(', ') || '—';
-        else if(name.match(/^q[1-5]$/)) val = QUIZ_LABELS[name][fd.get(name)] || 'No Data Logged';
+        else if(name.match(/^q[1-5]$/)) val = QUIZ_LABELS[name][fd.get(name)] || 'Not answered';
         else val = fd.get(name) || '—';
         return { label, val, type: type || 'text' };
       });
@@ -1441,15 +1457,15 @@
 
   function buildPrintArea(){
     const data = collectDossierData();
-    const fullName = document.getElementById('certName').textContent || 'Applicant';
+    const fullName = document.getElementById('certName').textContent || 'Candidate';
 
     let html = `<div class="pa-page">`;
     html += `<div class="pa-banner">
-      <div class="pa-eyebrow">🤫 TOP SECRET · FOR FAMILY REVIEW ONLY 🤫</div>
-      <h1>Marriage Applicant <em>Dossier</em> 💌</h1>
+      <div class="pa-eyebrow">🤫 Top Secret · Family Eyes Only 🤫</div>
+      <h1>The Suitor's <em>Dossier</em> 💌</h1>
       <div class="pa-name">${escapeHtml(fullName)}</div>
       <div class="pa-meter-wrap">
-        <div class="pa-meter-label">💘 Romance Metric Telemetry 💘</div>
+        <div class="pa-meter-label">💘 Romantic-O-Meter 💘</div>
         <div class="pa-meter-track"><div class="pa-meter-fill" style="width:${lastRomantic.pct}%"></div></div>
         <div class="pa-meter-verdict">${lastRomantic.pct}% — ${escapeHtml(lastRomantic.verdict)}</div>
       </div>
@@ -1468,7 +1484,7 @@
       });
       html += `</section>`;
     });
-    html += `<div class="pa-footer">Dataset Compiled Successfully 💘 · Registry Engine Finalized</div>`;
+    html += `<div class="pa-footer">Sealed with 💘 · The Suitor's Dossier</div>`;
     html += `</div></div>`;
 
     document.getElementById('printArea').innerHTML = html;
@@ -1476,13 +1492,14 @@
 
   function printDossier(){
     buildPrintArea();
+    // give the browser a tick to render before opening the print dialog
     setTimeout(()=>window.print(), 50);
   }
 
   function buildPlainTextDossier(){
     const data = collectDossierData();
-    const fullName = document.getElementById('certName').textContent || 'Applicant';
-    let text = `MARRIAGE APPLICANT DOSSIER\n${fullName}\nRomance Telemetry: ${lastRomantic.pct}% — ${lastRomantic.verdict}\n`;
+    const fullName = document.getElementById('certName').textContent || 'Candidate';
+    let text = `THE SUITOR'S DOSSIER\n${fullName}\nRomantic Index: ${lastRomantic.pct}% — ${lastRomantic.verdict}\n`;
     data.forEach(chap=>{
       text += `\n${chap.title}\n${'-'.repeat(chap.title.length)}\n`;
       chap.fields.forEach(f=>{
@@ -1496,6 +1513,8 @@
     buildPrintArea();
     const el = document.getElementById('printArea');
 
+    // temporarily render it off-screen at a fixed width so html2canvas
+    // captures the full styled design, then hide it again afterwards
     const prevStyle = el.getAttribute('style') || '';
     el.style.display = 'block';
     el.style.position = 'fixed';
@@ -1503,8 +1522,10 @@
     el.style.top = '0';
     el.style.width = '760px';
 
-    await new Promise(r=>setTimeout(r, 80));
+    await new Promise(r=>setTimeout(r, 80)); // let fonts/layout settle
+
     const canvas = await html2canvas(el, { scale:2, backgroundColor:'#fbf9f4', useCORS:true });
+
     el.setAttribute('style', prevStyle);
 
     const imgData = canvas.toDataURL('image/png');
@@ -1531,39 +1552,51 @@
   async function sendDossier(evt){
     const recipient = (document.getElementById('sendToEmail').value || '').trim();
     if(!recipient || !recipient.includes('@')){
-      alert('Please enter a valid recipient email address.');
+      alert('Please enter a valid recipient email address first.');
       return;
     }
-    const fullName = document.getElementById('certName').textContent || 'Applicant';
-    const fileName = `suitor-dossier-${fullName.replace(/\s+/g,'-').toLowerCase()}.pdf`;
+    const fullName = document.getElementById('certName').textContent || 'Candidate';
+    const fileName = `suitors-dossier-${fullName.replace(/\s+/g,'-').toLowerCase()}.pdf`;
 
     const btn = evt && evt.target;
     const originalLabel = btn ? btn.textContent : null;
-    if(btn){ btn.textContent = '💌 Compiling...'; btn.disabled = true; }
+    if(btn){ btn.textContent = '💌 Wrapping it up...'; btn.disabled = true; }
 
     let pdfBlob = null;
     try{
       pdfBlob = await buildPdfBlob();
+      
     }catch(err){
-      console.error('PDF production failure:', err);
+      console.error('PDF generation failed:', err);
     }
 
     if(btn){ btn.textContent = originalLabel; btn.disabled = false; }
 
+    // Best path: on devices/browsers that support sharing files (most phones,
+    // some desktop browsers), hand the actual PDF to the native share sheet
+    // so it can be sent as a real attachment via Mail or any app.
     if(pdfBlob && navigator.canShare){
       try{
         const file = new File([pdfBlob], fileName, { type:'application/pdf' });
+       console.log(file);
+
+const testURL = URL.createObjectURL(file);
+window.open(testURL);
         if(navigator.canShare({ files:[file] })){
           await navigator.share({
             files:[file],
-            title:`Marriage Applicant Dossier — ${fullName}`,
-            text:`Compiled profile registry for ${fullName} 💌`
+            title:`Suitor's Dossier — ${fullName}`,
+            text:`${fullName}'s dossier 💌`
           });
-          return;
+          return; // shared (or the user's own share sheet handled it)
         }
-      }catch(err){ /* Fail-safe fallback */ }
+      }catch(err){
+        // user cancelled the share sheet, or it isn't supported here — fall through
+      }
     }
 
+    // Fallback: a plain mailto link cannot attach a file by web standards, so
+    // we download the PDF here and open a pre-filled email asking to attach it.
     if(pdfBlob){
       const url = URL.createObjectURL(pdfBlob);
       const a = document.createElement('a');
@@ -1575,18 +1608,19 @@
     const text = buildPlainTextDossier();
     if(navigator.clipboard){ navigator.clipboard.writeText(text).catch(()=>{}); }
 
-    const subject = encodeURIComponent(`Marriage Applicant Dossier — ${fullName}`);
+    const subject = encodeURIComponent(`Suitor's Dossier — ${fullName}`);
     const bodyText = pdfBlob
-      ? `Hi!\n\nThe compiled registry PDF file ("${fileName}") has been downloaded locally onto this device. Please attach it to this email draft, as default mailto protocols cannot automatically intercept local file arrays.\n\n(A raw backup plaintext copy has also been moved into your system clipboard for convenience.)`
+      ? `Hi!\n\nThe dossier PDF ("${fileName}") just downloaded to this device — please attach it here before sending, since a plain email link can't attach files by itself.\n\n(A text copy is also on your clipboard as backup.)`
       : text;
     const body = encodeURIComponent(bodyText);
     const mailto = `mailto:${encodeURIComponent(recipient)}?subject=${subject}&body=${body}`;
     window.location.href = mailto;
 
     if(pdfBlob){
-      setTimeout(()=>alert(`📎 "${fileName}" downloaded! Please manually link it as an attachment on your active mail window — standard hyperlinks do not support forced auto-attachment paths.`), 300);
+      setTimeout(()=>alert(`📎 "${fileName}" downloaded! Please attach it to the email that just opened — mailto links can't attach files automatically.`), 300);
     }
   }
+
 </script>
 </body>
 </html>
