@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💘 ملف المتقدم للزواج (النسخة اللطيفة) 💘</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- إضافة خطي Cairo و Amiri لجمالية النصوص العربية -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#20232a;
+    --paper:#fbf9f4;
+    --paper-dim:#f1ede3;
+    --burgundy:#7a2e2e;
+    --burgundy-deep:#5a1f1f;
+    --gold:#a9822f;
+    --gold-bright:#c9a227;
+    --line:#d8d0bd;
+    --green-ok:#3c6e52;
+    --shadow: 0 10px 30px rgba(32,35,42,0.10);
+    --radius: 4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--ink);
+    font-family:'Cairo', 'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== Cover / Hero ===== */
+  .cover{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--paper);
+    padding:60px 24px;
+    position:relative;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(169,130,47,0.12), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(122,46,46,0.20), transparent 50%),
+      var(--ink);
+    overflow:hidden;
+  }
+  .cover-decor{ position:absolute; inset:0; pointer-events:none; z-index:0; }
+  .cover-decor span{
+    position:absolute;
+    font-size:26px;
+    opacity:0.35;
+    animation:bob 4s ease-in-out infinite;
+  }
+  .cover .seal, .cover .eyebrow, .cover h1, .cover p.sub, .cover .begin-btn{
+    position:relative; z-index:1;
+  }
+  .cover::before{
+    content:"";
+    position:absolute;
+    inset:18px;
+    border:1px solid rgba(201,162,39,0.35);
+    pointer-events:none;
+  }
+  .cover .eyebrow{
+    font-family:'JetBrains Mono', 'Cairo', monospace;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--gold-bright);
+    margin-bottom:22px;
+  }
+  .cover h1{
+    font-family:'Amiri', 'Fraunces', serif;
+    font-weight:700;
+    font-size:clamp(2.3rem, 6vw, 4.5rem);
+    margin:0 0 18px;
+    line-height:1.2;
+  }
+  .cover h1 em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--gold-bright);
+  }
+  .cover p.sub{
+    max-width:520px;
+    font-size:16px;
+    line-height:1.8;
+    color:#cfc9bd;
+    margin:0 0 40px;
+  }
+  .seal{
+    width:96px;height:96px;
+    border-radius:50%;
+    border:2px solid var(--gold-bright);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Amiri', 'Fraunces', serif;
+    font-size:15px;
+    color:var(--gold-bright);
+    margin-bottom:34px;
+    position:relative;
+  }
+  .seal::before, .seal::after{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border:1px solid rgba(201,162,39,0.25);
+    border-radius:50%;
+  }
+  .seal::after{ inset:-16px; border-color:rgba(201,162,39,0.12); }
+  .begin-btn{
+    font-family:'Cairo', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    background:var(--gold-bright);
+    color:var(--ink);
+    border:none;
+    padding:16px 36px;
+    cursor:pointer;
+    border-radius:2px;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .begin-btn:hover{ background:#e0b840; transform:translateY(-2px); }
+
+  /* ===== Layout ===== */
+  .wrap{
+    display:none;
+    background:var(--paper);
+    min-height:100vh;
+  }
+  .wrap.active{ display:block; }
+
+  .progress-rail{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink);
+    padding:14px 24px;
+    display:flex; align-items:center; gap:16px;
+  }
+  .progress-rail .rail-title{
+    font-family:'Amiri', serif;
+    font-weight:700;
+    color:var(--gold-bright);
+    font-size:18px;
+    white-space:nowrap;
+  }
+  .progress-track{
+    flex:1;
+    height:3px;
+    background:rgba(255,255,255,0.12);
+    position:relative;
+    overflow:hidden;
+    border-radius:2px;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--burgundy), var(--gold-bright));
+    transition:width .4s ease;
+  }
+  .progress-count{
+    font-family:'Cairo', sans-serif;
+    color:#cfc9bd;
+    font-size:12px;
+    white-space:nowrap;
+  }
+
+  .container{
+    max-width:760px;
+    margin:0 auto;
+    padding:64px 24px 120px;
+  }
+
+  .chapter{
+    display:none;
+    animation:fadein .5s ease;
+  }
+  .chapter.active{ display:block; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+
+  .chapter-index{
+    font-family:'Cairo', sans-serif;
+    color:var(--burgundy);
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .chapter-index::before{
+    content:"";
+    width:26px; height:1px;
+    background:var(--gold);
+  }
+  .chapter h2{
+    font-family:'Cairo', serif;
+    font-weight:700;
+    font-size:clamp(1.6rem, 3.4vw, 2.3rem);
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .chapter .chapter-note{
+    color:#6b6558;
+    font-size:14.5px;
+    max-width:52ch;
+    line-height:1.7;
+    margin:0 0 40px;
+  }
+
+  .field{
+    margin-bottom:26px;
+  }
+  .field label{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .field label .opt{
+    font-weight:400;
+    color:#9a9384;
+    font-style:italic;
+    font-size:12px;
+  }
+  .field input[type=text],
+  .field input[type=number],
+  .field input[type=date],
+  .field input[type=email],
+  .field input[type=tel],
+  .field select,
+  .field textarea{
+    width:100%;
+    padding:13px 14px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    font-family:'Cairo', sans-serif;
+    font-size:14.5px;
+    color:var(--ink);
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field textarea{ resize:vertical; min-height:90px; line-height:1.7; }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none;
+    border-color:var(--burgundy);
+    box-shadow:0 0 0 3px rgba(122,46,46,0.10);
+  }
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .row3{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width:600px){
+    .row, .row3{ grid-template-columns:1fr; }
+  }
+
+  /* chip / pill multi-select */
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+  .chip{
+    padding:9px 16px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    font-size:13px;
+    background:#fff;
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+    color:var(--ink);
+  }
+  .chip.selected{
+    background:var(--burgundy);
+    border-color:var(--burgundy);
+    color:#fff;
+  }
+  .chip input{ display:none; }
+
+  /* scale slider look for body info */
+  .scale{
+    display:flex;
+    justify-content:space-between;
+    gap:6px;
+  }
+  .scale label{
+    flex:1;
+    text-align:center;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:11px 4px;
+    font-size:13px;
+    cursor:pointer;
+    background:#fff;
+    transition:all .15s ease;
+  }
+  .scale input{ display:none; }
+  .scale input:checked + label{
+    background:var(--gold-bright);
+    border-color:var(--gold-bright);
+    color:var(--ink);
+    font-weight:700;
+  }
+
+  /* radio card for romantic quiz */
+  .quiz-q{
+    margin-bottom:34px;
+    padding:22px;
+    background:var(--paper-dim);
+    border-inline-start:3px solid var(--burgundy);
+    border-radius:2px;
+  }
+  .quiz-q .qtext{
+    font-family:'Cairo', serif;
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:16px;
+    color:var(--ink);
+  }
+  .quiz-opt{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:3px;
+    cursor:pointer;
+    font-size:14px;
+    line-height:1.6;
+    transition:background .15s ease;
+  }
+  .quiz-opt:hover{ background:rgba(122,46,46,0.05); }
+  .quiz-opt input{ margin-top:5px; }
+
+  .nav-buttons{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:50px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+  }
+  .btn{
+    font-family:'Cairo', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    padding:14px 26px;
+    border-radius:2px;
+    cursor:pointer;
+    border:1px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    transition:all .15s ease;
+  }
+  .btn:hover{ background:var(--ink); color:var(--paper); }
+  .btn.primary{
+    background:var(--burgundy);
+    border-color:var(--burgundy);
+    color:#fff;
+  }
+  .btn.primary:hover{ background:var(--burgundy-deep); }
+  .btn:disabled{ opacity:0.3; cursor:not-allowed; }
+  .btn:disabled:hover{ background:transparent; color:var(--ink); }
+
+  /* chapter index dots (right rail, desktop) */
+  .toc{
+    position:fixed;
+    right:28px; top:50%;
+    transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:16px;
+    z-index:40;
+  }
+  .toc button{
+    width:10px; height:10px;
+    border-radius:50%;
+    border:1px solid var(--burgundy);
+    background:transparent;
+    padding:0; cursor:pointer;
+  }
+  .toc button.done{ background:var(--gold-bright); border-color:var(--gold-bright); }
+  .toc button.current{ background:var(--burgundy); width:12px; height:12px; }
+  @media (max-width:900px){ .toc{ display:none; } }
+
+  /* ===== Final certificate ===== */
+  .certificate{
+    display:none;
+    background:var(--ink);
+    min-height:100vh;
+    align-items:center;
+    justify-content:center;
+    padding:60px 20px;
+  }
+  .certificate.active{ display:flex; }
+  .cert-card{
+    max-width:640px;
+    width:100%;
+    background:var(--paper);
+    border:1px solid var(--gold);
+    padding:52px 44px;
+    position:relative;
+  }
+  .cert-card::before{
+    content:"";
+    position:absolute; inset:10px;
+    border:1px solid rgba(122,46,46,0.25);
+  }
+  .cert-inner{ position:relative; z-index:2; }
+  .cert-eyebrow{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    color:var(--burgundy);
+    text-align:center;
+    margin-bottom:14px;
+  }
+  .cert-card h2{
+    font-family:'Cairo', serif;
+    font-size:2rem;
+    text-align:center;
+    margin:0 0 6px;
+  }
+  .cert-card .cert-name{
+    text-align:center;
+    color:var(--burgundy);
+    font-family:'Amiri', serif;
+    font-weight:700;
+    font-size:1.5rem;
+    margin-bottom:30px;
+  }
+  .cert-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px 24px;
+    margin-bottom:26px;
+    font-size:14px;
+  }
+  .cert-grid .cg-label{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    color:#9a9384;
+    margin-bottom:3px;
+  }
+  .romantic-meter{
+    margin:30px 0;
+    text-align:center;
+  }
+  .romantic-meter .rm-label{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--burgundy);
+    margin-bottom:10px;
+  }
+  .rm-track{
+    height:8px;
+    background:var(--paper-dim);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:10px;
+  }
+  .rm-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--gold), var(--burgundy));
+  }
+  .rm-verdict{
+    font-family:'Cairo', sans-serif;
+    font-size:15px;
+  }
+  .cert-actions{
+    display:flex; gap:12px; justify-content:center; margin-top:30px; flex-wrap:wrap;
+  }
+  .send-note{
+    font-size:13px;
+    color:#9a9384;
+    line-height:1.6;
+    margin-top:6px;
+  }
+
+  /* ===== Full printable dossier (built dynamically, screen-hidden) ===== */
+  #printArea{ display:none; }
+  #printArea, #printArea *{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+    color-adjust:exact;
+  }
+  #printArea .pa-page{
+    background:var(--paper);
+    max-width:760px;
+    margin:0 auto;
+  }
+  #printArea .pa-banner{
+    background:var(--ink);
+    color:var(--paper);
+    text-align:center;
+    padding:36px 24px 30px;
+    position:relative;
+    break-inside:avoid;
+  }
+  #printArea .pa-banner::before{
+    content:"";
+    position:absolute; inset:8px;
+    border:1px solid rgba(201,162,39,0.4);
+    pointer-events:none;
+  }
+  #printArea .pa-eyebrow{
+    font-family:'Cairo', sans-serif;
+    font-size:11px;
+    color:var(--gold-bright);
+    margin-bottom:12px;
+  }
+  #printArea .pa-banner h1{
+    font-family:'Cairo', serif;
+    font-weight:700;
+    font-size:2rem;
+    margin:0 0 6px;
+  }
+  #printArea .pa-banner h1 em{ font-style:italic; font-weight:400; color:var(--gold-bright); }
+  #printArea .pa-name{
+    font-family:'Amiri', serif;
+    font-size:1.3rem;
+    color:var(--gold-bright);
+    margin-bottom:18px;
+  }
+  #printArea .pa-meter-wrap{ max-width:320px; margin:0 auto; }
+  #printArea .pa-meter-label{
+    font-family:'Cairo', sans-serif;
+    font-size:11px;
+    color:var(--gold-bright); margin-bottom:6px;
+  }
+  #printArea .pa-meter-track{
+    height:8px; border-radius:8px; background:rgba(255,255,255,0.15);
+    overflow:hidden; margin-bottom:6px;
+  }
+  #printArea .pa-meter-fill{
+    height:100%; background:linear-gradient(90deg, var(--gold), var(--burgundy));
+  }
+  #printArea .pa-meter-verdict{ font-size:13px; color:#e6e0d3; }
+
+  #printArea .pa-body{ padding:30px 26px 10px; }
+  #printArea section.pa-chapter{
+    margin-bottom:20px;
+    padding:18px 20px;
+    background:var(--paper-dim);
+    border-inline-start:3px solid var(--burgundy);
+    border-radius:2px;
+    break-inside:avoid;
+  }
+  #printArea section.pa-chapter h3{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--burgundy);
+    margin:0 0 12px;
+  }
+  #printArea .pa-row{
+    display:flex;
+    gap:14px;
+    font-size:13.5px;
+    padding:6px 0;
+    border-bottom:1px dotted var(--line);
+  }
+  #printArea .pa-row:last-child{ border-bottom:none; }
+  #printArea .pa-row .pa-label{
+    width:190px;
+    flex-shrink:0;
+    color:#7a7566;
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    padding-top:2px;
+  }
+  #printArea .pa-row .pa-val{ flex:1; white-space:pre-wrap; color:var(--ink); }
+  #printArea .pa-tags{ display:flex; flex-wrap:wrap; gap:6px; flex:1; }
+  #printArea .pa-tag{
+    display:inline-block;
+    padding:3px 11px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    font-size:12px;
+    color:var(--ink);
+  }
+  #printArea .pa-footer{
+    text-align:center;
+    font-family:'Cairo', sans-serif;
+    font-size:11px;
+    color:#9a9384;
+    padding:16px 0 30px;
+  }
+
+  @media print{
+    body > *:not(#printArea){ display:none !important; }
+    #printArea{ display:block !important; background:var(--paper); }
+    #mascot{ display:none !important; }
+  }
+
+  /* ===== Fun & games: mascot, confetti, wiggles ===== */
+  @keyframes bob{
+    0%,100%{ transform:translateY(0) rotate(-2deg); }
+    50%{ transform:translateY(-10px) rotate(3deg); }
+  }
+  @keyframes popIn{
+    0%{ transform:scale(0.6); opacity:0; }
+    60%{ transform:scale(1.12); opacity:1; }
+    100%{ transform:scale(1); }
+  }
+  @keyframes wiggle{
+    0%,100%{ transform:rotate(0deg); }
+    25%{ transform:rotate(-4deg); }
+    75%{ transform:rotate(4deg); }
+  }
+  @keyframes heartPop{
+    0%{ transform:translate(50%,-50%) scale(0.3); opacity:1; }
+    70%{ transform:translate(50%,-160%) scale(1.3); opacity:1; }
+    100%{ transform:translate(50%,-220%) scale(1); opacity:0; }
+  }
+  @keyframes confettiFall{
+    0%{ transform:translateY(-10px) rotate(0deg); opacity:1; }
+    100%{ transform:translateY(420px) rotate(540deg); opacity:0; }
+  }
+  @keyframes speechIn{
+    from{ opacity:0; transform:translateY(6px) scale(0.9); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  .chip{ transition:transform .15s ease, background .15s ease, border-color .15s ease; }
+  .chip:active{ transform:scale(0.94); }
+  .chip.selected{ animation:popIn .35s ease; }
+
+  .btn, .begin-btn{ transition:transform .15s ease, background .2s ease; }
+  .btn:hover, .begin-btn:hover{ animation:wiggle .35s ease; }
+
+  .scale label:hover, .quiz-opt:hover{ transform:scale(1.01); }
+
+  #mascot{
+    position:fixed;
+    left:18px; bottom:18px;
+    z-index:200;
+    display:none;
+    align-items:flex-end;
+    gap:10px;
+    pointer-events:none;
+    user-select:none;
+  }
+  #mascot.show{ display:flex; }
+  #mascotFace{
+    font-size:44px;
+    animation:bob 2.8s ease-in-out infinite;
+    filter:drop-shadow(0 6px 10px rgba(0,0,0,0.35));
+  }
+  #mascotBubble{
+    background:var(--paper);
+    border:1px solid var(--gold);
+    color:var(--ink);
+    padding:10px 14px;
+    border-radius:14px 14px 3px 14px;
+    font-size:13px;
+    font-family:'Cairo', sans-serif;
+    max-width:220px;
+    line-height:1.5;
+    box-shadow:var(--shadow);
+    animation:speechIn .25s ease;
+    margin-bottom:6px;
+  }
+
+  .confetti-piece{
+    position:fixed;
+    top:0; left:0;
+    font-size:18px;
+    pointer-events:none;
+    z-index:300;
+    animation:confettiFall 1.1s ease-in forwards;
+  }
+  .heart-pop{
+    position:fixed;
+    z-index:300;
+    font-size:20px;
+    pointer-events:none;
+    animation:heartPop 0.9s ease-out forwards;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== MASCOT ===================== -->
+  <div id="mascot">
+    <div id="mascotBubble">مرحباً! أنا كيوبيد الصغير 🏹 سأكون هنا لمساعدتك وتوجيهك. لا داعي للقلق! 😅</div>
+    <div id="mascotFace">💘</div>
+  </div>
+
+  <!-- ===================== COVER ===================== -->
+  <section class="cover">
+    <div class="cover-decor" aria-hidden="true">
+      <span style="right:8%; top:20%; animation-delay:0s;">💌</span>
+      <span style="right:85%; top:15%; animation-delay:.6s;">💘</span>
+      <span style="right:15%; top:75%; animation-delay:1.1s;">✨</span>
+      <span style="right:90%; top:70%; animation-delay:.3s;">💍</span>
+      <span style="right:50%; top:8%; animation-delay:.9s;">🌹</span>
+    </div>
+    <div class="seal">😎<br>♥</div>
+    <div class="eyebrow">🤫 سري للغاية · لإطلاع العائلة فقط 🤫</div>
+    <h1>ملف المتقدم <em>للإرتباط</em> 💌</h1>
+    <p class="sub">ملف شخصي صريح ومرح بعض الشيء لرجل يرغب في التقدم للزواج 🎩💍 — بياناته، وجباته الخفيفة، رياضته، جانبه الرومانسي اللطيف، وما إذا كان يتذكر أعياد الميلاد حقاً أم يدعي ذلك فحسب! 😏</p>
+    <button class="begin-btn" onclick="beginForm()">لنبدأ الآن 🚀</button>
+  </section>
+
+  <!-- ===================== FORM ===================== -->
+  <div class="wrap" id="formWrap">
+
+    <div class="toc" id="toc"></div>
+
+    <div class="progress-rail">
+      <span class="rail-title">💘 الملف الشخصي</span>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-count" id="progressCount">الفصل 1 / 8</span>
+    </div>
+
+    <div class="container">
+      <form id="dossierForm">
+
+        <!-- CHAPTER 1: PERSONAL -->
+        <div class="chapter active" data-chapter="0">
+          <div class="chapter-index">الفصل الأول</div>
+          <h2>من هو 🕵️‍♂️</h2>
+          <p class="chapter-note">البيانات الأساسية — الاسم، تاريخ الميلاد، ومكان الإقامة. 🪪</p>
+
+          <div class="row">
+            <div class="field">
+              <label>الاسم الكامل</label>
+              <input type="text" name="fullName" placeholder="مثال: أحمد كريم بن صلاح" required>
+            </div>
+            <div class="field">
+              <label>تاريخ الميلاد</label>
+              <input type="date" name="dob" required>
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label>الجنسية</label>
+              <input type="text" name="nationality" placeholder="مثال: تونسي">
+            </div>
+            <div class="field">
+              <label>مدينة الإقامة</label>
+              <input type="text" name="city" placeholder="مثال: تونس">
+            </div>
+            <div class="field">
+              <label>الديانة <span class="opt">(اختياري)</span></label>
+              <input type="text" name="religion" placeholder="مثال: مسلم">
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>الحالة الاجتماعية</label>
+              <select name="maritalHistory">
+                <option>أعزب</option>
+                <option>مطلق</option>
+                <option>أرمل</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>هل لديك أطفال؟</label>
+              <select name="children">
+                <option>لا</option>
+                <option>نعم</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>رقم الهاتف</label>
+              <input type="tel" name="phone" placeholder="+216 ...">
+            </div>
+            <div class="field">
+              <label>البريد الإلكتروني</label>
+              <input type="email" name="email" placeholder="you@example.com">
+            </div>
+          </div>
+          <div class="field">
+            <label>المستوى التعليمي</label>
+            <select name="education">
+              <option>ثانوية عامة</option>
+              <option>شهادة البكالوريوس / الإجازة</option>
+              <option>شهادة الماجستير</option>
+              <option>الدكتوراه</option>
+              <option>تكوين مهني / تدريب حرفي</option>
+              <option>تعليم ذاتي / آخر</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CHAPTER 2: BODY -->
+        <div class="chapter" data-chapter="1">
+          <div class="chapter-index">الفصل الثاني</div>
+          <h2>البنية الجسدية 💪</h2>
+          <p class="chapter-note">المواصفات الحقيقية فقط، بدون فلاتر أو استعراض أمام مرآة الجيم. 📏✨</p>
+
+          <div class="row3">
+            <div class="field">
+              <label>الطول (سم)</label>
+              <input type="number" name="height" placeholder="مثال: 178">
+            </div>
+            <div class="field">
+              <label>الوزن (كجم)</label>
+              <input type="number" name="weight" placeholder="مثال: 75">
+            </div>
+            <div class="field">
+              <label>لون البشرة</label>
+              <select name="skinTone">
+                <option>فاتحة</option>
+                <option>قمحي فاتح</option>
+                <option>قمحي / حنطي</option>
+                <option>أسمر</option>
+                <option>داكنة</option>
+              </select>
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label>لون الشعر</label>
+              <input type="text" name="hairColor" placeholder="مثال: أسود">
+            </div>
+            <div class="field">
+              <label>لون العينين</label>
+              <input type="text" name="eyeColor" placeholder="مثال: بني">
+            </div>
+            <div class="field">
+              <label>البنية</label>
+              <select name="build">
+                <option>نحيف</option>
+                <option>رياضي</option>
+                <option>متوسط</option>
+                <option>مفتول العضلات</option>
+                <option>ممتلئ</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>شعر الوجه</label>
+            <div class="chips" data-name="facialHair">
+              <label class="chip"><input type="checkbox" value="حليق الذقن">حليق الذقن</label>
+              <label class="chip"><input type="checkbox" value="شارب">شارب</label>
+              <label class="chip"><input type="checkbox" value="لحية خفيفة">لحية خفيفة</label>
+              <label class="chip"><input type="checkbox" value="لحية كاملة">لحية كاملة</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>أي حالة صحية واضحة أو أمور يجب على شريكة المستقبل معرفتها؟<span class="opt"> (اختياري، تبقى سرية)</span></label>
+            <textarea name="health" placeholder="مثال: يرتدي نظارة، ربو خفيف، لا يوجد..."></textarea>
+          </div>
+          <div class="field">
+            <label>عادات العناية بالمظهر</label>
+            <div class="scale" data-name="grooming">
+              <input type="radio" name="grooming" id="g1" value="عادية / بسيطة"><label for="g1">بسيطة</label>
+              <input type="radio" name="grooming" id="g2" value="عناية متوسطة"><label for="g2">متوسطة</label>
+              <input type="radio" name="grooming" id="g3" value="أنيق / مهتم جداً"><label for="g3">مهتم جداً</label>
+              <input type="radio" name="grooming" id="g4" value="دقيق للغاية"><label for="g4">دقيق للغاية</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHAPTER 3: JOB & FUTURE -->
+        <div class="chapter" data-chapter="2">
+          <div class="chapter-index">الفصل الثالث</div>
+          <h2>العمل والطموح 💼🚀</h2>
+          <p class="chapter-note">ما يدفع الفواتير، والأحلام الكبيرة الأخرى في الحياة. 💸🌙</p>
+
+          <div class="row">
+            <div class="field">
+              <label>المسمى الوظيفي</label>
+              <input type="text" name="jobTitle" placeholder="مثال: مهندس مدني">
+            </div>
+            <div class="field">
+              <label>جهة العمل / المجال</label>
+              <input type="text" name="employer" placeholder="مثال: عمل حر، مقاولات">
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>فئة الدخل الشهري <span class="opt">(اختياري)</span></label>
+              <select name="income">
+                <option>أفضل عدم الإفصاح</option>
+                <option>مستقر ومناسب</option>
+                <option>مريح والحمد لله</option>
+                <option>أعلى بكثير من المتوسط</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>هل يملك مسكناً؟</label>
+              <select name="ownsHome">
+                <option>لا</option>
+                <option>إيجار</option>
+                <option>نعم، ملكية كاملة</option>
+                <option>نعم، بقرض عقاري</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>الخطة المهنية للخمس سنوات القادمة</label>
+            <textarea name="careerPlan" placeholder="أين ترى عملك ومسيرتك المهنية تتجه؟"></textarea>
+          </div>
+          <div class="field">
+            <label>أحلام الحياة <span class="opt">(الأحلام الكبيرة)</span></label>
+            <textarea name="dreams" placeholder="مثال: بناء منزل على البحر، تأسيس عمل خاص، السفر حول العالم، تأليف كتاب..."></textarea>
+          </div>
+        </div>
+
+        <!-- CHAPTER 4: SPORT -->
+        <div class="chapter" data-chapter="3">
+          <div class="chapter-index">الفصل الرابع</div>
+          <h2>الرياضة والانضباط البدني 🏋️‍♂️⚽</h2>
+          <p class="chapter-note">مدى نشاطه الحقيقي، مقارنة بما يخبر به الناس في المناسبات! 😅🏃‍♂️</p>
+
+          <div class="field">
+            <label>الرياضات التي يمارسها</label>
+            <div class="chips" data-name="sports">
+              <label class="chip"><input type="checkbox" value="كرة القدم">كرة القدم</label>
+              <label class="chip"><input type="checkbox" value="الجيم / رفع الأثقال">الجيم / رفع الأثقال</label>
+              <label class="chip"><input type="checkbox" value="الجري">الجري</label>
+              <label class="chip"><input type="checkbox" value="السباحة">السباحة</label>
+              <label class="chip"><input type="checkbox" value="الفنون القتالية">الفنون القتالية</label>
+              <label class="chip"><input type="checkbox" value="ركوب الدراجات">ركوب الدراجات</label>
+              <label class="chip"><input type="checkbox" value="التنس / البادل">التنس / البادل</label>
+              <label class="chip"><input type="checkbox" value="المشي الجبلي / التخييم">المشي الجبلي / التخييم</label>
+              <label class="chip"><input type="checkbox" value="لا يمارس بانتظام">لا يمارس بانتظام</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>كم مرة تمارس الرياضة؟</label>
+            <div class="scale" data-name="exerciseFreq">
+              <input type="radio" name="exerciseFreq" id="e1" value="نادراً"><label for="e1">نادراً</label>
+              <input type="radio" name="exerciseFreq" id="e2" value="1-2 مرتين/أسبوع"><label for="e2">١–٢ مرتين/أسبوع</label>
+              <input type="radio" name="exerciseFreq" id="e3" value="3-4 مرات/أسبوع"><label for="e3">٣–٤ مرات/أسبوع</label>
+              <input type="radio" name="exerciseFreq" id="e4" value="يومياً"><label for="e4">يومياً</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>الفريق الرياضي المفضل للمشاهدة <span class="opt">(اختياري)</span></label>
+            <input type="text" name="favTeam" placeholder="مثال: الترجي الرياضي التونسي">
+          </div>
+        </div>
+
+        <!-- CHAPTER 5: LIKES -->
+        <div class="chapter" data-chapter="4">
+          <div class="chapter-index">الفصل الخامس</div>
+          <h2>اهتماماته وتفضيلاته 🎨🎧</h2>
+          <p class="chapter-note">الهوايات، المأكولات، وكيف يقضي يوم الجمعة الهادئ حقاً. 🍕🎮</p>
+
+          <div class="field">
+            <label>الهوايات والاهتمامات</label>
+            <div class="chips" data-name="hobbies">
+              <label class="chip"><input type="checkbox" value="القراءة">القراءة</label>
+              <label class="chip"><input type="checkbox" value="الطبخ">الطبخ</label>
+              <label class="chip"><input type="checkbox" value="الموسيقى">الموسيقى</label>
+              <label class="chip"><input type="checkbox" value="الألعاب الرقمية">الألعاب الرقمية</label>
+              <label class="chip"><input type="checkbox" value="التصوير">التصوير الفوتوغرافي</label>
+              <label class="chip"><input type="checkbox" value="السفر">السفر</label>
+              <label class="chip"><input type="checkbox" value="الفن والرسم">الفن والرسم</label>
+              <label class="chip"><input type="checkbox" value="السيارات">السيارات</label>
+              <label class="chip"><input type="checkbox" value="البستنة">البستنة / النباتات</label>
+              <label class="chip"><input type="checkbox" value="الكتابة">الكتابة</label>
+              <label class="chip"><input type="checkbox" value="العمل التطوعي">العمل التطوعي</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>المطبخ المفضل</label>
+              <input type="text" name="cuisine" placeholder="مثال: تونسي، إيطالي، ياباني...">
+            </div>
+            <div class="field">
+              <label>نوع الموسيقى المفضل</label>
+              <input type="text" name="music" placeholder="مثال: مالوف، جاز، بوب...">
+            </div>
+          </div>
+          <div class="field">
+            <label>أمسية الجمعة المثالية</label>
+            <textarea name="idealEvening" placeholder="صف كيف ترغب في قضائها في الواقع بشكل مريح"></textarea>
+          </div>
+          <div class="field">
+            <label>الحيوانات الأليفة</label>
+            <select name="pets">
+              <option>يحب الحيوانات ويملك حيوانات أليفة</option>
+              <option>يحب الحيوانات ولكن لا يملك حالياً</option>
+              <option>محايد تجاه الحيوانات الأليفة</option>
+              <option>لا يفضل الحيوانات الأليفة</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CHAPTER 6: CHARACTER -->
+        <div class="chapter" data-chapter="5">
+          <div class="chapter-index">الفصل السادس</div>
+          <h2>الشخصية والطباع 🎭</h2>
+          <p class="chapter-note">من هو عندما لا يراقبه أحد ولا يوجد شخص يحاول إثارة إعجابه. 👀</p>
+
+          <div class="field">
+            <label>السمات الشخصية التي تصفه بأفضل شكل</label>
+            <div class="chips" data-name="traits">
+              <label class="chip"><input type="checkbox" value="هادئ">هادئ</label>
+              <label class="chip"><input type="checkbox" value="طموح">طموح</label>
+              <label class="chip"><input type="checkbox" value="مرح">مرح</label>
+              <label class="chip"><input type="checkbox" value="جدي">جدي</label>
+              <label class="chip"><input type="checkbox" value="صبور">صبور</label>
+              <label class="chip"><input type="checkbox" value="عنيد">عنيد</label>
+              <label class="chip"><input type="checkbox" value="كريم">كريم</label>
+              <label class="chip"><input type="checkbox" value="انطوائي">انطوائي</label>
+              <label class="chip"><input type="checkbox" value="اجتماعي">اجتماعي</label>
+              <label class="chip"><input type="checkbox" value="منظم">منظم</label>
+              <label class="chip"><input type="checkbox" value="عفوي">عفوي</label>
+              <label class="chip"><input type="checkbox" value="غيور حرصاً">حمائي / غيور حرصاً</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>كيف تتعامل مع الخلافات؟</label>
+            <select name="conflictStyle">
+              <option>النقاش والتحدث في الأمر فوراً</option>
+              <option>أحتاج لوقت بمفردي للهدوء أولاً</option>
+              <option>تجنب النزاع قدر الإمكان</option>
+              <option>انفعال لحظي ولكن يحل سريعاً</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>أبرز نقطة قوة</label>
+              <input type="text" name="strength" placeholder="مثال: الوفاء، الصبر والمثابرة...">
+            </div>
+            <div class="field">
+              <label>شيء تعمل على تحسينه في نفسك</label>
+              <input type="text" name="weakness" placeholder="مثال: العصبية، الالتزام بالوقت...">
+            </div>
+          </div>
+          <div class="field">
+            <label>ماذا يقول عنك أصدقاؤك المقربون؟</label>
+            <textarea name="friendsSay" placeholder="كن صادقاً — حتى النقاط غير الإيجابية"></textarea>
+          </div>
+        </div>
+
+        <!-- CHAPTER 7: THE ROMANCE TEST -->
+        <div class="chapter" data-chapter="6">
+          <div class="chapter-index">الفصل السابع</div>
+          <h2>هل هو رومانسي حقاً؟ 💘🔍</h2>
+          <p class="chapter-note">اختبار صغير وصريح للغاية. أجب كما تتصرف في الواقع — كيوبيد يراقب ويعرف كل شيء! 🏹👁️</p>
+
+          <div class="quiz-q">
+            <div class="qtext">س١. إنه عيد ميلاد شريكتك، ماذا تفعل؟</div>
+            <label class="quiz-opt"><input type="radio" name="q1" value="3">أخطط لشيء مميز قبل أسابيع، حتى لو كانت مفاجأة صغيرة.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="2">أحضر هدية جميلة وآخذها للخارج — خيار ممتاز وبدون مفاجآت كبيرة.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="1">أقول عيد ميلاد سعيد وأبحث عن هدية في نفس اليوم.</label>
+            <label class="quiz-opt"><input type="radio" name="q1" value="0">صراحةً، أحياناً أنسى التواريخ.</label>
+          </div>
+          <div class="quiz-q">
+            <div class="qtext">س٢. كيف تعبر عن عاطفتك عادةً؟</div>
+            <label class="quiz-opt"><input type="radio" name="q2" value="3">بالكلمات واللفتات الصغيرة والاهتمام المستمر — كل ذلك وبشكل متكرر.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="2">غالباً عبر الأفعال والمسؤولية — المساعدة، التواجد، وكوني سنداً يعتمد عليه.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="1">أظهر العاطفة بأفعالي، لكني لست بارعاً في التعبير بالكلمات جهاراً.</label>
+            <label class="quiz-opt"><input type="radio" name="q2" value="0">أفترض أنها تعرف ذلك دون الحاجة لإظهاره.</label>
+          </div>
+          <div class="quiz-q">
+            <div class="qtext">س٣. لقد مرت بيوم سيء ومجهد. ما هي خطوتك الأولى؟</div>
+            <label class="quiz-opt"><input type="radio" name="q3" value="3">أسألها عما حدث، أستمع إليها تماماً، ثم أسألها كيف يمكنني المساعدة.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="2">أحاول الترفيه عنها أو تشتيت انتباهها بشيء ممتع ولطيف.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="1">أقدم نصيحة سريعة ومباشرة لحل المشكلة.</label>
+            <label class="quiz-opt"><input type="radio" name="q3" value="0">أمنحها مساحتها الخاصة وأتركها تأتي إلي عندما تهدأ.</label>
+          </div>
+          <div class="quiz-q">
+            <div class="qtext">س٤. هل تتذكر التفاصيل الصغيرة التي تذكرها بشكل عابر؟</div>
+            <label class="quiz-opt"><input type="radio" name="q4" value="3">نعم، وغالباً ما أذكرها لاحقاً لأبين لها أنني تذكرتها واهتممت بها.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="2">عادةً أتذكر، إذا كان الأمر يهمها.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="1">أحياناً، إذا كنت مركزاً بشكل كامل.</label>
+            <label class="quiz-opt"><input type="radio" name="q4" value="0">ليس تماماً، التفاصيل العابرة تغيب عن بالي.</label>
+          </div>
+          <div class="quiz-q">
+            <div class="qtext">س٥. التخطيط للمستقبل معاً يحمسك لأن...</div>
+            <label class="quiz-opt"><input type="radio" name="q5" value="3">أحب صدقاً تخيل حياة وتفاصيل نبنيها معاً يوماً بعد يوم.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="2">يبدو كخطوة صحيحة ومسؤولة تالية في الحياة.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="1">لم أفكر في الأمر بتفصيل كبير بعد.</label>
+            <label class="quiz-opt"><input type="radio" name="q5" value="0">أركز على الحاضر أكثر من الخطط طويلة المدى.</label>
+          </div>
+        </div>
+
+        <!-- CHAPTER 8: WHAT HE'S LOOKING FOR -->
+        <div class="chapter" data-chapter="7">
+          <div class="chapter-index">الفصل الثامن</div>
+          <h2>ما الذي يبحث عنه شريكة حياته 🔎💍</h2>
+          <p class="chapter-note">الصفحة الأخيرة! ما نوع شريكة الحياة التي يأمل في العثور عليها ومشاركتها مسيرته. 🤝💫</p>
+
+          <div class="field">
+            <label>الصفات التي تبحث عنها في الزوجة</label>
+            <div class="chips" data-name="lookingFor">
+              <label class="chip"><input type="checkbox" value="الطيبة">الطيبة</label>
+              <label class="chip"><input type="checkbox" value="الطموح">الطموح</label>
+              <label class="chip"><input type="checkbox" value="الحس الفكاهي">الحس الفكاهي</label>
+              <label class="chip"><input type="checkbox" value="الاهتمام بالعائلة">الاهتمام بالعائلة</label>
+              <label class="chip"><input type="checkbox" value="الاستقلالية">الاستقلالية</label>
+              <label class="chip"><input type="checkbox" value="القيم المشتركة">القيم / المبادئ المشتركة</label>
+              <label class="chip"><input type="checkbox" value="الذكاء">الذكاء</label>
+              <label class="chip"><input type="checkbox" value="الدعم والتشجيع">الدعم والتشجيع</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>النظرة للحياة العائلية</label>
+            <select name="familyView">
+              <option>يريد أطفالاً في القريب العاجل</option>
+              <option>يريد أطفالاً مستقبلاً</option>
+              <option>منفتح / لم يقرر بعد</option>
+              <option>يفضل عدم إنجاب أطفال</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>في فقرة واحدة، صف نوع الزواج والعائلة التي تريد بناءها</label>
+            <textarea name="marriageVision" placeholder="تحدث بوضوح وعفوية، فهذا الجزء هو الأهم للقراءة بتمعن"></textarea>
+          </div>
+          <div class="field">
+            <label>أي شيء آخر يستحق المعرفة عنك؟</label>
+            <textarea name="extra"></textarea>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button type="button" class="btn" id="prevBtn" onclick="changeChapter(-1)">← العودة للخلف</button>
+          <button type="button" class="btn primary" id="nextBtn" onclick="changeChapter(1)">المتابعة ←</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== CERTIFICATE / SUMMARY ===================== -->
+  <section class="certificate" id="certificate">
+    <div class="cert-card">
+      <div class="cert-inner">
+        <div class="cert-eyebrow">🎉 تمت المهمة بنجاح 🎉</div>
+        <h2>تم إغلاق الملف وتأكيده! 💌</h2>
+        <div class="cert-name" id="certName">—</div>
+        <div class="cert-grid" id="certGrid"></div>
+        <div class="romantic-meter">
+          <div class="rm-label">💘 مقياس الرومانسية 💘</div>
+          <div class="rm-track"><div class="rm-fill" id="rmFill" style="width:0%"></div></div>
+          <div class="rm-verdict" id="rmVerdict">—</div>
+        </div>
+        <div class="field" style="margin-top:6px;">
+          <label>إرسال هذا الملف إلى <span class="opt">(بريد الخاطبة أو العائلة الإلكتروني)</span></label>
+          <input type="email" id="sendToEmail" placeholder="recipient@example.com">
+          <div class="send-note">سنقوم بإنشاء ملف PDF مصمم بشكل متناسق ومحاولة إرساله مباشرة إلى تطبيق البريد الخاص بك عبر نافذة المشاركة 📎. إذا كان متصفحك أو جهازك لا يدعم ذلك، فسيتم تنزيل ملف PDF تلقائياً وفتح تطبيق البريد الإلكتروني لتتمكن من إرفاقه يدوياً.</div>
+        </div>
+        <div class="cert-actions">
+          <button class="btn" onclick="location.reload()">🔄 البدء من جديد</button>
+          <button class="btn" onclick="printDossier()">🖨️ طباعة هذه التحفة</button>
+          <button class="btn primary" onclick="sendDossier(event)">📤 إرسال الملف الآن</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full printable dossier, built at print/send time, hidden on screen -->
+  <div id="printArea"></div>
+
+<script>
+  const chapters = document.querySelectorAll('.chapter');
+  let current = 0;
+
+  function beginForm(){
+    document.querySelector('.cover').style.display = 'none';
+    document.getElementById('formWrap').classList.add('active');
+    buildToc();
+    updateProgress();
+    window.scrollTo(0,0);
+    document.getElementById('mascot').classList.add('show');
+    mascotSay(0);
+  }
+
+  const MASCOT_LINES = [
+    "حسنًا، لنبدأ بالمعلومات الأساسية والمهمة أولاً. 📋",
+    "أوه، المواصفات الجسدية. كن صادقاً، لدي جهاز كشف كذب! (لا ليس لدي.. أم هل لدي حقاً؟ 🕵️)",
+    "حديث العمل والمال! لا تقلق، أنا لا أحكم على أحد.. كثيراً. 💼😌",
+    "وقت الرياضة! هل حمل أكياس البقالة يعتبر من تمارين الكارديو؟ 🛍️😂",
+    "أخبرني عن هواياتك. أعدك ألا أسرقها.. على الأغلب. 🎨",
+    "اختبار الشخصية والطباع! هنا تظهر الحقائق الحقيقية. ☕",
+    "🚨 تنبيه الرومانسية 🚨 أجب بصدق، يمكنني شم الإجابات المزيفة! 👃💘",
+    "لقد اقتربنا من النهاية! كيف تبدو شريكة الأحلام المثالية بالنسبة لك؟ 🔍💫",
+  ];
+
+  function mascotSay(i){
+    const bubble = document.getElementById('mascotBubble');
+    const line = MASCOT_LINES[i] || "لقد أبليت حسناً! 💪";
+    bubble.style.animation = 'none';
+    void bubble.offsetWidth; // restart animation
+    bubble.style.animation = null;
+    bubble.textContent = line;
+    const face = document.getElementById('mascotFace');
+    face.style.animation = 'none';
+    void face.offsetWidth;
+    face.style.animation = null;
+  }
+
+  function buildToc(){
+    const toc = document.getElementById('toc');
+    toc.innerHTML = '';
+    chapters.forEach((c,i)=>{
+      const b = document.createElement('button');
+      b.title = 'الفصل ' + (i+1);
+      b.onclick = ()=>{ goTo(i); };
+      toc.appendChild(b);
+    });
+    refreshToc();
+  }
+  function refreshToc(){
+    document.querySelectorAll('#toc button').forEach((b,i)=>{
+      b.classList.toggle('current', i===current);
+      b.classList.toggle('done', i<current);
+    });
+  }
+
+  function updateProgress(){
+    const pct = ((current+1)/chapters.length)*100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = `الفصل ${current+1} / ${chapters.length}`;
+    document.getElementById('prevBtn').disabled = current===0;
+    document.getElementById('nextBtn').textContent = (current===chapters.length-1) ? 'تأكيد وإغلاق الملف ←' : 'المتابعة ←';
+    refreshToc();
+  }
+
+  function goTo(i){
+    chapters[current].classList.remove('active');
+    current = i;
+    chapters[current].classList.add('active');
+    updateProgress();
+    mascotSay(i);
+    document.querySelector('.progress-rail').scrollIntoView({behavior:'smooth'});
+  }
+
+  function changeChapter(dir){
+    if(dir>0 && current===chapters.length-1){
+      finishDossier();
+      return;
+    }
+    const next = current + dir;
+    if(next<0 || next>=chapters.length) return;
+    goTo(next);
+  }
+
+  // chip toggle behavior
+  const CHIP_REACTIONS = ['✨','💫','👍','🎯','🙌','😄'];
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', (e)=>{
+      const input = chip.querySelector('input');
+      input.checked = !input.checked;
+      chip.classList.toggle('selected', input.checked);
+      if(input.checked){
+        const emoji = CHIP_REACTIONS[Math.floor(Math.random()*CHIP_REACTIONS.length)];
+        popHeart(e.clientX, e.clientY, emoji);
+      }
+    });
+  });
+
+  // little emoji that pops up and fades where you clicked
+  function popHeart(x, y, emoji){
+    const el = document.createElement('div');
+    el.className = 'heart-pop';
+    el.textContent = emoji || '💗';
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(), 950);
+  }
+
+  // a little burst of confetti emojis raining down from the top
+  function confettiBurst(count){
+    const emojis = ['🎉','💖','💘','✨','🎊','💍','😍'];
+    count = count || 40;
+    for(let i=0;i<count;i++){
+      setTimeout(()=>{
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        el.style.left = Math.random()*100 + 'vw';
+        el.style.top = '-20px';
+        el.style.fontSize = (14 + Math.random()*14) + 'px';
+        document.body.appendChild(el);
+        setTimeout(()=>el.remove(), 1200);
+      }, i*25);
+    }
+  }
+
+  // react to the quiz answers too, since that's the fun chapter
+  document.querySelectorAll('.quiz-opt input[type=radio]').forEach(radio=>{
+    radio.addEventListener('change', (e)=>{
+      const rect = e.target.getBoundingClientRect();
+      popHeart(rect.left+10, rect.top, '💘');
+    });
+  });
+
+  function getChipValues(name){
+    const group = document.querySelector(`.chips[data-name="${name}"]`);
+    if(!group) return [];
+    return Array.from(group.querySelectorAll('input:checked')).map(i=>i.value);
+  }
+
+  function finishDossier(){
+    const form = document.getElementById('dossierForm');
+    const fd = new FormData(form);
+
+    const fullName = fd.get('fullName') || 'متقدم بدون اسم';
+    const city = fd.get('city') || '—';
+    const job = fd.get('jobTitle') || '—';
+    const height = fd.get('height') || '—';
+    const build = fd.get('build') || '—';
+    const traits = getChipValues('traits').slice(0,4).join(', ') || '—';
+    const hobbies = getChipValues('hobbies').slice(0,4).join(', ') || '—';
+    const sports = getChipValues('sports').slice(0,3).join(', ') || '—';
+
+    document.getElementById('certName').textContent = fullName;
+    const grid = document.getElementById('certGrid');
+    grid.innerHTML = '';
+    const rows = [
+      ['الإقامة', city],
+      ['المهنة', job],
+      ['الطول / البنية', `${height} سم، ${build}`],
+      ['السمات الرئيسية', traits],
+      ['الهوايات', hobbies],
+      ['الرياضة', sports],
+    ];
+    rows.forEach(([label,val])=>{
+      const d = document.createElement('div');
+      d.innerHTML = `<div class="cg-label">${label}</div><div>${val}</div>`;
+      grid.appendChild(d);
+    });
+
+    // romantic score
+    let score = 0, answered = 0;
+    ['q1','q2','q3','q4','q5'].forEach(q=>{
+      const val = fd.get(q);
+      if(val!==null){ score += parseInt(val); answered++; }
+    });
+    const maxScore = 15;
+    const pct = answered ? Math.round((score/maxScore)*100) : 0;
+    document.getElementById('rmFill').style.width = pct + '%';
+
+    let verdict;
+    if(pct>=80) verdict = "💘 رومانسي حقيقي — يكتب القصائد، يتذكر التواريخ، ويتأثر في حفلات الزفاف.";
+    else if(pct>=55) verdict = "🌹 مراعٍ ولطيف بصدق، بطريقته الخاصة المستقرة والهادئة.";
+    else if(pct>=30) verdict = "🙂 يهتم بشريكته، لكن الرومانسية ليست لغته الأولى تماماً.";
+    else verdict = "🔧 عملي ولطيف حتى النخاع — يظهر حبه بالمسؤولية والاعتمادية وليس بالورود.";
+    document.getElementById('rmVerdict').textContent = `${pct}% — ${verdict}`;
+    lastRomantic = { pct, verdict };
+
+    document.getElementById('formWrap').classList.remove('active');
+    document.getElementById('certificate').classList.add('active');
+    window.scrollTo(0,0);
+    confettiBurst(60);
+    const finalLine = pct>=80
+      ? "واو! روميو هنا بالكامل! 😍💘 تم تأكيد وإغلاق الملف بنظافة!"
+      : pct>=55
+      ? "عمل رائع! تم إغلاق وتأكيد ملف المتقدم رسمياً. 🎉"
+      : pct>=30
+      ? "تم حفظ الملف! ربما تحتاج للتدرب على تقديم مفاجأة أو اثنتين. 😉"
+      : "تم الحفظ! لديك وظائف منزلية للتدرب على الرومانسية. 📚💌";
+    document.getElementById('mascotBubble').textContent = finalLine;
+  }
+
+  let lastRomantic = { pct:0, verdict:'—' };
+
+  // Field label lookup, in dossier order, chapter by chapter
+  const DOSSIER_SCHEMA = [
+    { title:'الفصل الأول — من هو 🕵️‍♂️', fields:[
+      ['fullName','الاسم الكامل'], ['dob','تاريخ الميلاد'], ['nationality','الجنسية'],
+      ['city','مدينة الإقامة'], ['religion','الديانة'], ['maritalHistory','الحالة الاجتماعية'],
+      ['children','هل لديه أطفال'], ['phone','رقم الهاتف'], ['email','البريد الإلكتروني'], ['education','المستوى التعليمي'],
+    ]},
+    { title:'الفصل الثاني — البنية الجسدية 💪', fields:[
+      ['height','الطول (سم)'], ['weight','الوزن (كجم)'], ['skinTone','لون البشرة'],
+      ['hairColor','لون الشعر'], ['eyeColor','لون العينين'], ['build','البنية الجسدية'],
+      ['facialHair','شعر الوجه', 'chip'], ['health','ملاحظات صحية'], ['grooming','عادات العناية بالمظهر'],
+    ]},
+    { title:'الفصل الثالث — العمل والطموح 💼🚀', fields:[
+      ['jobTitle','المسمى الوظيفي'], ['employer','جهة العمل / المجال'], ['income','فئة الدخل'],
+      ['ownsHome','ملكية السكن'], ['careerPlan','الخطة المهنية لـ 5 سنوات'], ['dreams','أحلام الحياة'],
+    ]},
+    { title:'الفصل الرابع — الرياضة والانضباط البدني 🏋️‍♂️⚽', fields:[
+      ['sports','الرياضات الممارسة','chip'], ['exerciseFreq','معدل التمرين'], ['favTeam','الفريق المفضل'],
+    ]},
+    { title:'الفصل الخامس — اهتماماته وتفضيلاته 🎨🎧', fields:[
+      ['hobbies','الهوايات والاهتمامات','chip'], ['cuisine','المطبخ المفضل'], ['music','الموسيقى المفضلة'],
+      ['idealEvening','أمسية الجمعة المثالية'], ['pets','الحيوانات الأليفة'],
+    ]},
+    { title:'الفصل السادس — الشخصية والطباع 🎭', fields:[
+      ['traits','السمات الشخصية','chip'], ['conflictStyle','أسلوب التعامل مع الخلافات'],
+      ['strength','أبرز نقطة قوة'], ['weakness','شيء يعمل على تحسينه'], ['friendsSay','ماذا يقول عنه الأصدقاء'],
+    ]},
+    { title:'الفصل السابع — مؤشر الرومانسية 💘🔍', fields:[
+      ['q1','س١ — التعامل مع عيد الميلاد'], ['q2','س٢ — التعبير عن العاطفة'],
+      ['q3','س٣ — التعامل مع اليوم السيء'], ['q4','س٤ — تذكر التفاصيل الصغيرة'],
+      ['q5','س٥ — الحماس للمستقبل المشترك'],
+    ]},
+    { title:'الفصل الثامن — ما الذي يبحث عنه 🔎💍', fields:[
+      ['lookingFor','الصفات المطلوبة','chip'], ['familyView','النظرة للحياة العائلية'],
+      ['marriageVision','رؤية الزواج'], ['extra','تفاصيل إضافية'],
+    ]},
+  ];
+
+  const QUIZ_LABELS = {
+    q1:{3:'أخطط لشيء مميز قبل أسابيع',2:'أحضر هدية جميلة دون مفاجآت كبيرة',1:'أبحث عن هدية في نفس اليوم',0:'أنسى التواريخ أحياناً'},
+    q2:{3:'بالكلمات واللفتات الصغيرة والاهتمام المستمر',2:'غالباً عبر الأفعال والمسؤولية والاعتمادية',1:'أظهر العاطفة دون التعبير بالكلمات جهاراً',0:'أفترض أنها تعرف دون حاجة لإظهاره'},
+    q3:{3:'أستمع إليها بالكامل ثم أسألها كيف أساعد',2:'أحاول الترفيه عنها وتشتيت انتباهها بمرح',1:'أقدم نصيحة سريعة لحل المشكلة',0:'أمنحها مساحتها الخاصة تماماً'},
+    q4:{3:'أتذكر التفاصيل وأذكرها لاحقاً لإسعادها',2:'عادة أتذكر إذا كان الأمر مهماً',1:'أحياناً إن كنت مركزاً بالكامل',0:'لا أتذكر، التفاصيل تغيب عن بالي'},
+    q5:{3:'أحب تخيل وتفاصيل حياة نبنيها معاً يوماً بيوم',2:'أشعر أنها الخطوة الصحيحة والمسؤولة التالية',1:'لم أفكر في الأمر بتفصيل كبير بعد',0:'أركز على الحاضر أكثر من الخطط بعيدة المدى'},
+    };
+
+  function collectDossierData(){
+    const form = document.getElementById('dossierForm');
+    const fd = new FormData(form);
+    const chaptersOut = DOSSIER_SCHEMA.map(chap=>{
+      const fields = chap.fields.map(([name,label,type])=>{
+        let val;
+        if(type==='chip') val = getChipValues(name).join(', ') || '—';
+        else if(name.match(/^q[1-5]$/)) val = QUIZ_LABELS[name][fd.get(name)] || 'لم يتم الإجابة';
+        else val = fd.get(name) || '—';
+        return { label, val, type: type || 'text' };
+      });
+      return { title: chap.title, fields };
+    });
+    return chaptersOut;
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  }
+
+  function buildPrintArea(){
+    const data = collectDossierData();
+    const fullName = document.getElementById('certName').textContent || 'متقدم';
+
+    let html = `<div class="pa-page">`;
+    html += `<div class="pa-banner">
+      <div class="pa-eyebrow">🤫 سري للغاية · لإطلاع العائلة فقط 🤫</div>
+      <h1>ملف المتقدم <em>للإرتباط</em> 💌</h1>
+      <div class="pa-name">${escapeHtml(fullName)}</div>
+      <div class="pa-meter-wrap">
+        <div class="pa-meter-label">💘 مقياس الرومانسية 💘</div>
+        <div class="pa-meter-track"><div class="pa-meter-fill" style="width:${lastRomantic.pct}%"></div></div>
+        <div class="pa-meter-verdict">${lastRomantic.pct}% — ${escapeHtml(lastRomantic.verdict)}</div>
+      </div>
+    </div>`;
+
+    html += `<div class="pa-body">`;
+    data.forEach(chap=>{
+      html += `<section class="pa-chapter"><h3>${escapeHtml(chap.title)}</h3>`;
+      chap.fields.forEach(f=>{
+        if(f.type==='chip' && f.val !== '—'){
+          const tags = f.val.split(', ').map(t=>`<span class="pa-tag">${escapeHtml(t)}</span>`).join('');
+          html += `<div class="pa-row"><div class="pa-label">${escapeHtml(f.label)}</div><div class="pa-tags">${tags}</div></div>`;
+        } else {
+          html += `<div class="pa-row"><div class="pa-label">${escapeHtml(f.label)}</div><div class="pa-val">${escapeHtml(f.val)}</div></div>`;
+        }
+      });
+      html += `</section>`;
+    });
+    html += `<div class="pa-footer">تم الحفظ والإغلاق بنجاح 💘 · ملف المتقدم للزواج</div>`;
+    html += `</div></div>`;
+
+    document.getElementById('printArea').innerHTML = html;
+  }
+
+  function printDossier(){
+    buildPrintArea();
+    setTimeout(()=>window.print(), 50);
+  }
+
+  function buildPlainTextDossier(){
+    const data = collectDossierData();
+    const fullName = document.getElementById('certName').textContent || 'متقدم';
+    let text = `ملف المتقدم للزواج\n${fullName}\nمؤشر الرومانسية: ${lastRomantic.pct}% — ${lastRomantic.verdict}\n`;
+    data.forEach(chap=>{
+      text += `\n${chap.title}\n${'-'.repeat(chap.title.length)}\n`;
+      chap.fields.forEach(f=>{
+        text += `${f.label}: ${f.val}\n`;
+      });
+    });
+    return text;
+  }
+
+  async function buildPdfBlob(){
+    buildPrintArea();
+    const el = document.getElementById('printArea');
+
+    const prevStyle = el.getAttribute('style') || '';
+    el.style.display = 'block';
+    el.style.position = 'fixed';
+    el.style.left = '-9999px';
+    el.style.top = '0';
+    el.style.width = '760px';
+
+    await new Promise(r=>setTimeout(r, 80));
+
+    const canvas = await html2canvas(el, { scale:2, backgroundColor:'#fbf9f4', useCORS:true });
+
+    el.setAttribute('style', prevStyle);
+
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ unit:'pt', format:'a4' });
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+    while(heightLeft > 0){
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+    return pdf.output('blob');
+  }
+
+  async function sendDossier(evt){
+    const recipient = (document.getElementById('sendToEmail').value || '').trim();
+    if(!recipient || !recipient.includes('@')){
+      alert('الرجاء إدخال عنوان بريد إلكتروني صحيح أولاً.');
+      return;
+    }
+    const fullName = document.getElementById('certName').textContent || 'متقدم';
+    const fileName = `suitors-dossier-${fullName.replace(/\s+/g,'-').toLowerCase()}.pdf`;
+
+    const btn = evt && evt.target;
+    const originalLabel = btn ? btn.textContent : null;
+    if(btn){ btn.textContent = '💌 جاري التجهيز...'; btn.disabled = true; }
+
+    let pdfBlob = null;
+    try{
+      pdfBlob = await buildPdfBlob();
+    }catch(err){
+      console.error('فشل في إنشاء ملف PDF:', err);
+    }
+
+    if(btn){ btn.textContent = originalLabel; btn.disabled = false; }
+
+    if(pdfBlob && navigator.canShare){
+      try{
+        const file = new File([pdfBlob], fileName, { type:'application/pdf' });
+        if(navigator.canShare({ files:[file] })){
+          await navigator.share({
+            files:[file],
+            title:`ملف المتقدم للزواج — ${fullName}`,
+            text:`ملف المتقدم ${fullName} 💌`
+          });
+          return;
+        }
+      }catch(err){
+        // fail-safe fallback
+      }
+    }
+
+    if(pdfBlob){
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement('a');
+      a.href = url; a.download = fileName;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 4000);
+    }
+
+    const text = buildPlainTextDossier();
+    if(navigator.clipboard){ navigator.clipboard.writeText(text).catch(()=>{}); }
+
+    const subject = encodeURIComponent(`ملف المتقدم للزواج — ${fullName}`);
+    const bodyText = pdfBlob
+      ? `مرحباً!\n\nتم تحميل ملف الـ PDF الخاص بالملف الشخصي ("${fileName}") على هذا الجهاز — يرجى إرفاقه هنا قبل الإرسال، حيث لا يمكن لروابط البريد الإلكتروني العادية إرفاق الملفات تلقائياً.\n\n(تم نسخ نسخة نصية أيضاً إلى الحافظة كدعم احتياطي.)`
+      : text;
+    const body = encodeURIComponent(bodyText);
+    const mailto = `mailto:${encodeURIComponent(recipient)}?subject=${subject}&body=${body}`;
+    window.location.href = mailto;
+
+    if(pdfBlob){
+      setTimeout(()=>alert(`📎 تم تنزيل "${fileName}"! يرجى إرفاقه بريدياً بالرسالة المفتوحة الآن — روابط mailto لا تدعم إرفاق الملفات تلقائياً.`), 300);
+    }
+  }
+
+</script>
+</body>
+</html>
