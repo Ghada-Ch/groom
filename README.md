@@ -1,5 +1,14 @@
 # 💍 Suitor's Dossier
 
+![License](https://img.shields.io/github/license/Ghada-Ch/groom)
+![Stars](https://img.shields.io/github/stars/Ghada-Ch/groom?style=social)
+![Forks](https://img.shields.io/github/forks/Ghada-Ch/groom?style=social)
+![Issues](https://img.shields.io/github/issues/Ghada-Ch/groom)
+![Last Commit](https://img.shields.io/github/last-commit/Ghada-Ch/groom)
+![Contributors](https://img.shields.io/github/contributors/Ghada-Ch/groom)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+
+Create a professional marriage suitor's dossier in minutes.
 Create a professional marriage suitor's dossier in minutes.
 
 This is a free, open-source project that helps people generate a clean, printable marriage profile while giving developers an easy way to contribute by adding translations.
