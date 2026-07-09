@@ -24,8 +24,7 @@ This is a free, open-source project that helps people generate a clean, printabl
 | Turkish | ❌ Contributions welcome |
 | other languages | ❌ Contributions welcome |
 ## 🚀 Demo
-
-[https://ghada-ch.github.io/groom/index.html](https://ghada-ch.github.io/groom/index_ar.html)
+[https://ghada-ch.github.io/groom/](https://ghada-ch.github.io/groom/)
 
 ## 🤝 Contributing
 
