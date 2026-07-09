@@ -1,74 +1,38 @@
 # Contributing
 
-First of all, thank you for your interest in contributing to this project! ❤️
+Thank you for your interest in contributing! ❤️
 
-The goal of this project is to help people create a professional and respectful **Suitor's Dossier** for marriage. Every country and culture has different customs, expectations, and legal requirements, so contributions from around the world are highly appreciated.
+This project is intentionally beginner-friendly and welcomes developers who want to make their first open-source contribution while helping make **Suitor's Dossier** available in more languages.
 
-## Ways to contribute
+## How to Contribute
 
-You can help by:
+The easiest way to contribute is by adding a new language.
 
-* 🌍 Adding a new language.
-* 🇺🇳 Creating a version adapted to your country's culture.
-* ✨ Improving the design or user experience.
-* 🐞 Fixing bugs.
-* ⚡ Improving performance.
-* 📝 Correcting grammar or translations.
-* 💡 Suggesting new features.
+### Steps
 
-## Adding a new language
-
-1. Copy `index.html`.
-2. Rename it using the language code.
+1. Fork this repository.
+2. Copy `index.html`.
+3. Rename it using the language code.
 
 Examples:
 
-* `index-fr.html` → French
-* `index-es.html` → Spanish
-* `index-de.html` → German
-* `index-tr.html` → Turkish
-* `index-id.html` → Indonesian
+* `index-fr.html` — French
+* `index-es.html` — Spanish
+* `index-de.html` — German
+* `index-ja.html` — Japanese
 
-Translate all visible text while keeping the same layout and functionality.
+4. Translate all visible text.
+5. Keep the HTML, CSS, JavaScript, and functionality unchanged.
+6. Test your translation in a browser.
+7. Open a Pull Request.
 
-## Creating a country-specific version
+## Translation Guidelines
 
-Marriage customs differ from one country to another.
+* Use natural, accurate translations.
+* Keep the same layout and structure.
+* Do not modify IDs, class names, or JavaScript.
+* For right-to-left languages, ensure the page displays correctly.
 
-If your country requires additional information or uses different terminology, feel free to adapt the questionnaire while keeping the overall purpose of the project.
+Every new language helps make this project accessible to more people around the world.
 
-Please mention the country in your Pull Request description.
-
-Examples:
-
-* Tunisia
-* Morocco
-* Egypt
-* Saudi Arabia
-* Pakistan
-* Indonesia
-* Malaysia
-
-## Coding style
-
-* Keep the HTML clean and well organized.
-* Use meaningful comments when necessary.
-* Do not remove existing functionality without discussion.
-* Try to keep the design consistent across languages.
-
-## Pull Requests
-
-Before opening a Pull Request:
-
-* Test your changes in a browser.
-* Make sure nothing is broken.
-* Describe what you changed.
-* Include screenshots if you changed the design.
-
-## Respect
-
-This project is intended to help people present themselves respectfully for marriage.
-
-Please keep contributions respectful of different cultures, religions, and traditions.
-
-Thank you for helping make this project better for everyone! ❤️
+Happy contributing! 🚀
