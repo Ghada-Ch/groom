@@ -16,10 +16,10 @@ The easiest way to contribute is by adding a new language.
 
 Examples:
 
-* `index-fr.html` — French
-* `index-es.html` — Spanish
-* `index-de.html` — German
-* `index-ja.html` — Japanese
+* `index_fr.html` — French
+* `index_es.html` — Spanish
+* `index_de.html` — German
+* `index_ja.html` — Japanese
 
 4. Translate all visible text.
 5. Keep the HTML, CSS, JavaScript, and functionality unchanged.
